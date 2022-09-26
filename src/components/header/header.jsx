@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import styles from './header.module.css';
+import { debounce } from 'lodash';
 
 const Header = (props) => {
   const [isToggle, setToggle] = useState(true);
   const [resize, setResize] = useState();
 
-  const handleResize = () => {
+  const handleResize = debounce(() => {
     setResize(window.innerWidth);
-  };
+  }, 1000);
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [resize]);
+  }, []);
 
   const toggleBtn = () => {
     setToggle(!isToggle);
