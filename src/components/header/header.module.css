@@ -11,10 +11,16 @@
   align-items: center;
 }
 
+.logo button {
+  font-size: 1.1rem;
+  border: 0;
+  background-color: transparent;
+}
+
 .icon {
-  font-size: 1.5rem;
   display: block;
   text-align: center;
+  font-size: 1.5rem;
   width: 2.5rem;
   height: 2.5rem;
   line-height: 2.5rem;
@@ -26,10 +32,12 @@
 .title {
   margin: 0;
   padding: 0 0.2em;
+  color: black;
 }
 
 .menu {
   display: flex;
+  align-items: center;
 }
 
 .menu li {
@@ -38,10 +46,10 @@
 }
 
 .button {
-  font-size: 1.1rem;
   cursor: pointer;
   outline: none;
   background-color: transparent;
+  font-size: 1.1rem;
   border: 0;
   padding: 0.5em 1em;
   border-radius: 5%;

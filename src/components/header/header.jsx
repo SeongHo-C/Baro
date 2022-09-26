@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styles from './header.module.css';
 import { debounce } from 'lodash';
+import { useNavigate } from 'react-router-dom';
 
 const Header = (props) => {
   const [isToggle, setToggle] = useState(true);
   const [resize, setResize] = useState();
+  const navigate = useNavigate();
 
   const handleResize = debounce(() => {
     setResize(window.innerWidth);
@@ -25,20 +27,34 @@ const Header = (props) => {
     <header className={styles.header}>
       <div className={styles.logo}>
         <span className={styles.icon}>B</span>
-        <h1 className={styles.title}>바로</h1>
+        <button onClick={() => navigate('/')}>
+          <h1 className={styles.title}>바로</h1>
+        </button>
       </div>
       <ul
         className={styles.menu}
         style={{ display: isToggle || resize > 992 ? 'flex' : 'none' }}
       >
         <li>
-          <button className={styles.button}>프로젝트</button>
+          <button
+            className={styles.button}
+            onClick={() => navigate('/project')}
+          >
+            프로젝트
+          </button>
         </li>
         <li>
-          <button className={styles.button}>라운지</button>
+          <button className={styles.button} onClick={() => navigate('/rounge')}>
+            라운지
+          </button>
         </li>
         <li>
-          <button className={styles.button}>랭킹</button>
+          <button
+            className={styles.button}
+            onClick={() => navigate('/ranking')}
+          >
+            랭킹
+          </button>
         </li>
         <li>
           <button className={styles.button}>SIGN IN</button>

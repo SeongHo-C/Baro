@@ -5,7 +5,7 @@ const Footer = (props) => {
   return (
     <footer className={styles.footer}>
       <i className='fa-regular fa-copyright'></i>
-      <span>Copyright 인하공업전문대학 이성호, 박인우</span>
+      <span> Copyright 인하공업전문대학 이성호, 박인우</span>
     </footer>
   );
 };
