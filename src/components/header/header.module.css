@@ -1,0 +1,99 @@
+@value makerOrange from '../../common/color.module.css';
+@value mediaQuery from '../../common/size.module.css';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  font-size: 1.5rem;
+  display: block;
+  text-align: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  background-color: makerOrange;
+  color: white;
+  border-radius: 50%;
+}
+
+.title {
+  margin: 0;
+  padding: 0 0.2em;
+}
+
+.menu {
+  display: flex;
+}
+
+.menu li {
+  list-style: none;
+  padding: 0 0.5em;
+}
+
+.button {
+  font-size: 1.1rem;
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  border: 0;
+  padding: 0.5em 1em;
+  border-radius: 5%;
+}
+
+.button:hover {
+  color: makerOrange;
+}
+
+.toggle {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  color: black;
+  display: none;
+  background-color: transparent;
+  border: 0;
+  color: makerOrange;
+}
+
+@media screen and (max-width: mediaQuery) {
+  .header {
+    flex-direction: column;
+  }
+
+  .menu {
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+  .menu li {
+    text-align: center;
+    padding: 0.5em 0;
+  }
+  .button {
+    width: 20rem;
+  }
+  .button:hover {
+    color: white;
+    background-color: makerOrange;
+    opacity: 0.8;
+  }
+  .toggle {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+    align-items: center;
+  }
+
+  .toggleText {
+    font-size: 0.8rem;
+  }
+}
