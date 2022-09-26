@@ -1,0 +1,5 @@
+@value makerOrange from '../../common/color.module.css';
+
+.footer {
+  color: makerOrange;
+}
