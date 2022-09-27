@@ -1,9 +1,15 @@
 @value makerOrange from '../../common/color.module.css';
 @value mediaQuery from '../../common/size.module.css';
 
+.container {
+  display: flex;
+  justify-content: center;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
+  width: 90%;
 }
 
 .logo {

@@ -1,5 +1,16 @@
 @value makerOrange from '../../common/color.module.css';
 
+.footer::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: wheat;
+  transform: translateY(-1rem);
+}
+
 .footer {
+  padding: 1rem 0;
   color: makerOrange;
+  width: 100%;
 }
