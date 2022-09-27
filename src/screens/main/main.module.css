@@ -1,0 +1,23 @@
+.banner {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+}
+
+.bannerImg {
+  width: 100vw;
+  height: 20em;
+}
+
+.projectCard {
+  display: flex;
+  justify-content: center;
+}
+
+.project {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  margin: 3em 0;
+  padding: 0;
+}

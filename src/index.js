@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.module.css';
-import App from './App';
+import styles from './index.module.css';
+import App from './app';
 import '@fortawesome/fontawesome-free/js/all.js';
+import { Provider } from 'react-redux';
+import store from './store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <div className={styles.container}>
+        <App />
+      </div>
+    </Provider>
   </React.StrictMode>
 );
