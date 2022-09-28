@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './header.module.css';
 import { debounce } from 'lodash';
 import { useNavigate } from 'react-router-dom';
@@ -14,13 +14,6 @@ const Header = (props) => {
     setResize(window.innerWidth);
   }, 1000);
 
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   const toggleBtn = () => {
     setToggle(!isToggle);
   };
@@ -35,6 +28,13 @@ const Header = (props) => {
   const onLogin = () => {
     console.log('로그인');
   };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <header className={styles.container}>
@@ -77,17 +77,19 @@ const Header = (props) => {
             <button className={styles.button} onClick={openModal}>
               SIGN IN
             </button>
-            <Modal open={modalOpen} close={closeModal}>
-              <div className={styles.modal}>
-                <div className={styles.modalText}>
-                  <span>아이디어 공유부터 팀빌딩까지</span>
-                  <span>이곳에서 바로!</span>
+            {modalOpen && (
+              <Modal open={modalOpen} close={closeModal}>
+                <div className={styles.modal}>
+                  <div className={styles.modalText}>
+                    <span>아이디어 공유부터 팀빌딩까지</span>
+                    <span>이곳에서 바로!</span>
+                  </div>
+                  <button className={styles.modalBtn} onClick={onLogin}>
+                    <img src='../../images/google.png' alt='' />
+                  </button>
                 </div>
-                <button className={styles.modalBtn} onClick={onLogin}>
-                  <img src='../../images/google.png' alt='' />
-                </button>
-              </div>
-            </Modal>
+              </Modal>
+            )}
           </li>
         </ul>
         <button className={styles.toggle} onClick={toggleBtn}>

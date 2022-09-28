@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styles from './modal.module.css';
 
 const Modal = ({ open, close, children }) => {
+  const modalRef = useRef();
+
+  const handleCloseModal = (event) => {
+    if (
+      open &&
+      (!modalRef.current || !modalRef.current.contains(event.target))
+    ) {
+      close();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('mousedown', handleCloseModal);
+    return () => {
+      window.removeEventListener('mousedown', handleCloseModal);
+    };
+  }, []);
+
   return (
     <div
       className={
@@ -9,7 +27,7 @@ const Modal = ({ open, close, children }) => {
       }
     >
       {open ? (
-        <section className={styles.container}>
+        <section ref={modalRef} className={styles.container}>
           <header className={styles.header}>
             <div className={styles.logo}>
               <span className={styles.icon}>B</span>
