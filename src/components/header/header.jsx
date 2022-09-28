@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import styles from './header.module.css';
 import { debounce } from 'lodash';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../modal/modal';
 
 const Header = (props) => {
   const [isToggle, setToggle] = useState(true);
   const [resize, setResize] = useState();
+  const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleResize = debounce(() => {
@@ -21,6 +23,17 @@ const Header = (props) => {
 
   const toggleBtn = () => {
     setToggle(!isToggle);
+  };
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const onLogin = () => {
+    console.log('로그인');
   };
 
   return (
@@ -61,7 +74,20 @@ const Header = (props) => {
             </button>
           </li>
           <li>
-            <button className={styles.button}>SIGN IN</button>
+            <button className={styles.button} onClick={openModal}>
+              SIGN IN
+            </button>
+            <Modal open={modalOpen} close={closeModal}>
+              <div className={styles.modal}>
+                <div className={styles.modalText}>
+                  <span>아이디어 공유부터 팀빌딩까지</span>
+                  <span>이곳에서 바로!</span>
+                </div>
+                <button className={styles.modalBtn} onClick={onLogin}>
+                  <img src='../../images/google.png' alt='' />
+                </button>
+              </div>
+            </Modal>
           </li>
         </ul>
         <button className={styles.toggle} onClick={toggleBtn}>
