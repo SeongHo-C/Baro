@@ -3,12 +3,16 @@ import styles from './header.module.css';
 import { debounce } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../modal/modal';
+import { useSelector } from 'react-redux';
 
 const Header = (props) => {
   const [isToggle, setToggle] = useState(true);
   const [resize, setResize] = useState();
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
+
+  const isUserId = useSelector((state) => state.user.sub);
+  console.log(isUserId);
 
   const handleResize = debounce(() => {
     setResize(window.innerWidth);
@@ -73,25 +77,35 @@ const Header = (props) => {
               랭킹
             </button>
           </li>
-          <li>
-            <button className={styles.button} onClick={openModal}>
-              SIGN IN
-            </button>
-            {modalOpen && (
-              <Modal open={modalOpen} close={closeModal}>
-                <div className={styles.modal}>
-                  <div className={styles.modalText}>
-                    <span>아이디어 공유부터 팀빌딩까지</span>
-                    <span>이곳에서 바로!</span>
+          {!isUserId ? (
+            <li>
+              <button className={styles.button} onClick={openModal}>
+                SIGN IN
+              </button>
+              {modalOpen && (
+                <Modal open={modalOpen} close={closeModal}>
+                  <div className={styles.modal}>
+                    <div className={styles.modalText}>
+                      <span>아이디어 공유부터 팀빌딩까지</span>
+                      <span>이곳에서 바로!</span>
+                    </div>
+                    <a href='http://bestinwoo.hopto.org:8080/oauth2/authorization/google'>
+                      <img src='../../images/google.png' alt='' />
+                    </a>
                   </div>
-
-                  <a href='http://bestinwoo.hopto.org:8080/oauth2/authorization/google'>
-                    <img src='../../images/google.png' alt='' />
-                  </a>
-                </div>
-              </Modal>
-            )}
-          </li>
+                </Modal>
+              )}
+            </li>
+          ) : (
+            <button
+              className={`${styles.button} ${styles.profile}`}
+              onClick={openModal}
+            >
+              <i
+                className={`fa-solid fa-circle-user ${styles.profileImage}`}
+              ></i>
+            </button>
+          )}
         </ul>
         <button className={styles.toggle} onClick={toggleBtn}>
           <i className='fas fa-bars'></i>

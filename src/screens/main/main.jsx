@@ -21,7 +21,7 @@ const Main = (props) => {
       <div className={styles.banner}>
         <img
           className={styles.bannerImg}
-          src='../../../images/banner.png'
+          src='../../../images/banner2.png'
           alt=''
         />
       </div>

@@ -135,3 +135,7 @@
   cursor: pointer;
   text-align: center;
 }
+
+.profileImage {
+  font-size: 1.5rem;
+}
