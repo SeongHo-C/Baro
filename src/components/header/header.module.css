@@ -126,11 +126,12 @@
   align-items: center;
 }
 
-.modalBtn {
+.modal a {
   margin-top: 3em;
   margin-bottom: 3em;
   border: 0;
   outline: 0;
   background-color: transparent;
   cursor: pointer;
+  text-align: center;
 }

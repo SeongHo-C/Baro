@@ -84,9 +84,10 @@ const Header = (props) => {
                     <span>아이디어 공유부터 팀빌딩까지</span>
                     <span>이곳에서 바로!</span>
                   </div>
-                  <button className={styles.modalBtn} onClick={onLogin}>
+
+                  <a href='http://bestinwoo.hopto.org:8080/oauth2/authorization/google'>
                     <img src='../../images/google.png' alt='' />
-                  </button>
+                  </a>
                 </div>
               </Modal>
             )}

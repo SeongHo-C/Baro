@@ -1,24 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { isEmpty } from 'lodash';
 
 const initialState = {
-  isLogin: false,
-  user_email: null,
-  user_name: null,
-  user_job: null,
-  user_file: null,
-  user_intro: null,
-  user_school: null,
+  isAuthenticated: false,
+  user: {},
 };
 
 const loginSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    login: (state, action) => {
-      state.push({ isLogin: true });
+    add: (state, action) => {
+      return {
+        isAuthenticated: !isEmpty(action.payload),
+        user: action.payload,
+      };
     },
   },
 });
-
 export default loginSlice;
-export const { login } = loginSlice.actions;
+export const { add } = loginSlice.actions;

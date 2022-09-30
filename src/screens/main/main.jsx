@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import ProjectCard from '../../components/project_card/project_card';
 import styles from './main.module.css';
 
 const Main = (props) => {
+  // const [isLogin, setIsLogin] = useState(false);
   const projects = useSelector((state) => {
     return state.projects;
   });
+
   const navigate = useNavigate();
 
   const moveProjects = () => {
     navigate('/project');
   };
-
-  useEffect(() => {}, []);
 
   return (
     <section className={styles.container}>

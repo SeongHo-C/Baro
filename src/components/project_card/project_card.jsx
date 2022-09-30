@@ -1,4 +1,5 @@
 import React from 'react';
+import LikeButton from '../like_button/like_button';
 import styles from './project_card.module.css';
 
 const ProjectCard = ({ project }) => {
@@ -26,6 +27,7 @@ const ProjectCard = ({ project }) => {
         <span>모집완료</span>
         <span className={styles.recruitText}>{`${complete}/${member}`}</span>
       </div>
+      {/* <div className={styles.like}>{<LikeButton />}</div> */}
     </li>
   );
 };

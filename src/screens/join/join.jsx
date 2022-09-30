@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styles from './join.module.css';
 
 const Join = (props) => {
   const [firstOption, setFirtstOption] = useState();
+  const location = useLocation();
+
+  const email = location.state.email;
   const selectRef = useRef();
 
   const kinds = [
@@ -43,7 +47,6 @@ const Join = (props) => {
     handleChangeSelect();
   }, []);
 
-  console.log(selectRef.current);
   return (
     <section className={styles.container}>
       <header className={styles.header}>
@@ -54,7 +57,7 @@ const Join = (props) => {
         <div className={styles.input}>
           <span className={styles.name}>이메일</span>
           <div className={styles.email}>
-            <input type='text' value='leeseong010@naver.com' disabled />
+            <input type='text' value={email} disabled />
             <span className={styles.emailText}>인증 완료</span>
           </div>
         </div>
