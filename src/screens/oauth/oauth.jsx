@@ -14,12 +14,14 @@ const Oauth = (props) => {
     const accessToken = searchParams.get('accessToken');
     const refreshToken = searchParams.get('refreshToken');
     const isJoin = searchParams.get('isFirst');
+    const userInfo = jwtDecode(accessToken);
 
     localStorage.setItem('jwtToken', accessToken);
     setAuthorizationToken(accessToken);
-    dispatch(add(jwtDecode(accessToken)));
+    dispatch(add(userInfo));
 
-    if (isJoin) {
+    // isJoin으로 판별해야함.
+    if (!userInfo.nickname) {
       navigate('/join', {
         state: jwtDecode(accessToken),
       });

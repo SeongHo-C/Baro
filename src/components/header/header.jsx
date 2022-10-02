@@ -3,15 +3,17 @@ import styles from './header.module.css';
 import { debounce } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../modal/modal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { remove } from '../../slices/loginSlice';
 
 const Header = (props) => {
   const [isToggle, setToggle] = useState(true);
   const [resize, setResize] = useState();
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const isUserId = useSelector((state) => state.user.sub);
+  const isUserId = useSelector((state) => state.user.isAuthenticated);
 
   const handleResize = debounce(() => {
     setResize(window.innerWidth);
@@ -30,6 +32,11 @@ const Header = (props) => {
 
   const onLogin = () => {
     console.log('로그인');
+  };
+
+  const onLogout = () => {
+    localStorage.clear();
+    dispatch(remove());
   };
 
   useEffect(() => {
@@ -98,7 +105,7 @@ const Header = (props) => {
           ) : (
             <button
               className={`${styles.button} ${styles.profile}`}
-              onClick={openModal}
+              onClick={onLogout}
             >
               <i
                 className={`fa-solid fa-circle-user ${styles.profileImage}`}

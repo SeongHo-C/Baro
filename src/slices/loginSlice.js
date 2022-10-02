@@ -12,11 +12,17 @@ const loginSlice = createSlice({
   reducers: {
     add: (state, action) => {
       return {
-        isAuthenticated: !isEmpty(action.payload),
+        isAuthenticated: !isEmpty(action.payload.nickname),
         user: action.payload,
+      };
+    },
+    remove: (state, action) => {
+      return {
+        isAuthenticated: false,
+        user: {},
       };
     },
   },
 });
 export default loginSlice;
-export const { add } = loginSlice.actions;
+export const { add, remove } = loginSlice.actions;

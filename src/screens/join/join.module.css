@@ -42,6 +42,12 @@
   padding: 0.5rem 0.5rem;
   border-radius: 0.5rem;
 }
+
+.verification {
+  font-size: 0.8rem;
+  color: red;
+}
+
 .name {
   margin-bottom: 0.5em;
 }
