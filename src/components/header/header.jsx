@@ -107,9 +107,7 @@ const Header = (props) => {
               className={`${styles.button} ${styles.profile}`}
               onClick={onLogout}
             >
-              <i
-                className={`fa-solid fa-circle-user ${styles.profileImage}`}
-              ></i>
+              <i className='fa-regular fa-user'></i>
             </button>
           )}
         </ul>
