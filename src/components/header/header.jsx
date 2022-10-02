@@ -12,7 +12,6 @@ const Header = (props) => {
   const navigate = useNavigate();
 
   const isUserId = useSelector((state) => state.user.sub);
-  console.log(isUserId);
 
   const handleResize = debounce(() => {
     setResize(window.innerWidth);

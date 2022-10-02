@@ -16,17 +16,6 @@ import jwtDecode from 'jwt-decode';
 const App = (props) => {
   const dispatch = useDispatch();
 
-  const loginMaintain = () => {
-    if (localStorage.getItem('jwtToken')) {
-      setAuthorizationToken(localStorage.getItem('jwtToken'));
-      dispatch(add(jwtDecode(localStorage.getItem('jwtToken'))));
-    }
-  };
-
-  useEffect(() => {
-    loginMaintain();
-  });
-
   return (
     <BrowserRouter>
       <Header />

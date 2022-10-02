@@ -1,50 +1,40 @@
-import React, { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from './join.module.css';
 
 const Join = (props) => {
-  const [firstOption, setFirtstOption] = useState();
-  const location = useLocation();
+  const [jobs, setJobs] = useState();
+  const [Option, setOption] = useState(0);
 
+  const location = useLocation();
+  const url = process.env.REACT_APP_URL;
   const email = location.state.email;
   const selectRef = useRef();
 
-  const kinds = [
-    { value: 1, name: '프론트엔드개발' },
-    { value: 2, name: '백엔드개발' },
-    { value: 3, name: '디자인' },
+  const getJob = useCallback(async () => {
+    try {
+      await axios.get(`${url}/job`, {}).then((response) => {
+        setJobs(response.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  const jobLevel = [
+    { id: 1, name: '초보' },
+    { id: 2, name: '중수' },
+    { id: 3, name: '고수' },
   ];
 
-  const secondKinds = {
-    프론트엔드개발: [
-      { value: 1, name: 'IOS' },
-      { value: 2, name: '안드로이드' },
-      { value: 3, name: '웹프론트엔드' },
-    ],
-    백엔드개발: [
-      { value: 1, name: '웹 서버' },
-      { value: 2, name: '블록체인' },
-      { value: 3, name: 'AI' },
-    ],
-    디자인: [
-      { value: 1, name: '그래픽디자인' },
-      { value: 2, name: 'UI/UX디자인' },
-      { value: 3, name: '3D디자인' },
-    ],
-  };
-
-  const thirdKinds = [
-    { value: 1, name: '초보' },
-    { value: 2, name: '중수' },
-    { value: 3, name: '고수' },
-  ];
-
-  const handleChangeSelect = () => {
-    setFirtstOption(selectRef.current.value);
+  const handleOption = (e) => {
+    const index = e.target.selectedIndex;
+    setOption(index);
   };
 
   useEffect(() => {
-    handleChangeSelect();
+    getJob();
   }, []);
 
   return (
@@ -71,27 +61,27 @@ const Join = (props) => {
             <select
               ref={selectRef}
               className={styles.select}
-              onChange={handleChangeSelect}
+              onChange={handleOption}
             >
-              {kinds.map((kind) => (
-                <option key={kind.value} name={kind.value}>
-                  {kind.name}
-                </option>
-              ))}
-            </select>
-
-            <select className={styles.select}>
-              {firstOption &&
-                secondKinds[firstOption].map((kind) => (
-                  <option key={kind.value} name={kind.value}>
-                    {kind.name}
+              {jobs &&
+                jobs.map((job) => (
+                  <option key={job.id} name={job.name}>
+                    {job.name}
                   </option>
                 ))}
             </select>
             <select className={styles.select}>
-              {thirdKinds.map((kind) => (
-                <option key={kind.value} name={kind.value}>
-                  {kind.name}
+              {jobs &&
+                jobs[Option].children.map((job) => (
+                  <option key={job.id} name={job.name}>
+                    {job.name}
+                  </option>
+                ))}
+            </select>
+            <select className={styles.select}>
+              {jobLevel.map((level) => (
+                <option key={level.id} name={level.name}>
+                  {level.name}
                 </option>
               ))}
             </select>
