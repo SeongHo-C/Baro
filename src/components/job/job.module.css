@@ -1,0 +1,16 @@
+@value makerOrange '../../common/color.module.css';
+
+.selectBox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.select {
+  width: 30%;
+  padding: 0.6rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.selectRecruit {
+  text-align: center;
+}
