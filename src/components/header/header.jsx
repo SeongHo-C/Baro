@@ -83,6 +83,18 @@ const Header = (props) => {
               랭킹
             </button>
           </li>
+          {isUserId ? (
+            <li>
+              <button
+                className={styles.button}
+                onClick={() => navigate('/project/create')}
+              >
+                프로젝트 생성
+              </button>
+            </li>
+          ) : (
+            ''
+          )}
           {!isUserId ? (
             <li>
               <button className={styles.button} onClick={openModal}>

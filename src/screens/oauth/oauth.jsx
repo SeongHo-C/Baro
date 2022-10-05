@@ -37,7 +37,7 @@ const Oauth = (props) => {
     setAuthorizationToken(accessToken);
     dispatch(add(userInfo));
 
-    setTimeout(onRefresh, userInfo.exp - 60000);
+    setTimeout(onRefresh, userInfo.exp - 100000);
   };
 
   const isGoogleLogin = () => {

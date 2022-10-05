@@ -167,7 +167,7 @@ const Join = (props) => {
           />
         </div>
         <footer className={styles.footer}>
-          <button className={styles.button}>가입 완료</button>
+          <button className={styles.button}>작성 완료</button>
         </footer>
       </form>
     </section>

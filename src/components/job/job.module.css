@@ -1,5 +1,9 @@
 @value makerOrange '../../common/color.module.css';
 
+.container {
+  margin-bottom: 0.5em;
+}
+
 .selectBox {
   display: flex;
   justify-content: space-between;
