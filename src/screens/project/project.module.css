@@ -1,0 +1,40 @@
+@value makerOrange from '../../common/color.module.css';
+@value mediaQuery from '../../common/size.module.css';
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.project {
+  width: 90%;
+  display: flex;
+  padding: 3em 0;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.headerText {
+  font-size: 1.2rem;
+  color: makerOrange;
+  font-weight: 700;
+}
+
+.headerText2 {
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+.container1 {
+  display: flex;
+}
+
+@media screen and (max-width: mediaQuery) {
+  .container1 {
+    flex-direction: column;
+  }
+}

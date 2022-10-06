@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { ko } from 'date-fns/esm/locale';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -12,6 +12,7 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import jwtDecode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
+import setAuthorizationToken from '../../service/setAuthorizationToken';
 
 const ProjectCreate = (props) => {
   const [selectPurpose, setSelectPurpose] = useState('사이드 프로젝트');
@@ -130,6 +131,12 @@ const ProjectCreate = (props) => {
     };
     onProjectCreate(data);
   };
+
+  // useEffect(() => {
+  //   if (localStorage.getItem('jwtToken')) {
+  //     setAuthorizationToken(localStorage.getItem('jwtToken'));
+  //   }
+  // }, []);
 
   return (
     <section className={styles.container}>

@@ -1,0 +1,54 @@
+.newProject {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+}
+
+.container {
+  margin: 0 5rem;
+  border: 0.5px solid lightgray;
+  border-radius: 1rem;
+}
+
+.img {
+  width: 100%;
+  height: 15rem;
+  padding: 0;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1rem;
+}
+
+.info span {
+  margin-bottom: 0.2rem;
+}
+
+.kind {
+  font-size: 0.8rem;
+  color: gray;
+  font-weight: 600;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.content {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: gray;
+}
+
+.subContent {
+  color: gray;
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+}

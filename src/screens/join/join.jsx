@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import setAuthorizationToken from '../../service/setAuthorizationToken';
 import styles from './join.module.css';
 
 const Join = (props) => {
