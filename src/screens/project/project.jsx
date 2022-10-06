@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import AllProject from '../../components/all_project/all_project';
 import GoodProject from '../../components/good_project/good_project';
 import NewProject from '../../components/new_project/new_project';
 import styles from './project.module.css';
@@ -19,6 +20,7 @@ const Project = (props) => {
           <NewProject />
           <GoodProject />
         </div>
+        <AllProject />
       </div>
     </section>
   );
