@@ -132,11 +132,13 @@ const ProjectCreate = (props) => {
     onProjectCreate(data);
   };
 
-  // useEffect(() => {
-  //   if (localStorage.getItem('jwtToken')) {
-  //     setAuthorizationToken(localStorage.getItem('jwtToken'));
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (localStorage.getItem('jwtToken')) {
+      setAuthorizationToken(localStorage.getItem('jwtToken'));
+    } else {
+      console.log('token error');
+    }
+  }, []);
 
   return (
     <section className={styles.container}>

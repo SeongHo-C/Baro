@@ -55,3 +55,14 @@
   background-color: makerOrange;
   color: white;
 }
+
+.lists {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.listsStyle {
+  width: 60%;
+  margin-top: 1em;
+}

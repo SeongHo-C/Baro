@@ -3,16 +3,24 @@ import { ko } from 'date-fns/esm/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './rounge.module.css';
 import axios from 'axios';
-import Job from '../../components/job/job';
 import { Editor, Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+import RoungeCard from '../../components/rounge_card/rounge_card';
 
 const Rounge = (props) => {
   const editorRef = useRef();
   const url = process.env.REACT_APP_URL;
+  const data = {
+    1: {
+      id: 1,
+    },
+    2: {
+      id: 2,
+    },
+  };
 
   const onRegister = (e) => {
     e.preventDefault();
@@ -48,6 +56,13 @@ const Rounge = (props) => {
           </div>
         </div>
       </form>
+      <div className={styles.listsStyle}>
+        <ul className={styles.lists}>
+          {Object.keys(data).map((key) => (
+            <RoungeCard key={key} />
+          ))}
+        </ul>
+      </div>
     </section>
   );
 };
