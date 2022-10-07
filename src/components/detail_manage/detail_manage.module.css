@@ -1,0 +1,69 @@
+@value makerOrange from '../../common/color.module.css';
+
+.detailInfo {
+  padding: 3em 1em;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+}
+
+.container::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: lightgray;
+  transform: translateY(1.5rem);
+}
+
+.name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.recruitJob {
+  margin-right: 10em;
+}
+
+.leaderInfo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+}
+
+.memberInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.memberTxt {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.applicationCards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.applicationCard {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2em;
+}
+
+.btn {
+  margin-top: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  border-radius: 0.5rem;
+  color: white;
+  background-color: makerOrange;
+  border: 0;
+  outline: 0;
+}
