@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+import DetailInfo from '../../components/detail_info/detail_info';
+import DetailManage from '../../components/detail_manage/detail_manage';
 import styles from './project_detail.module.css';
 
 const ProjectDetail = (props) => {
+  const [activeTab, setActiveTab] = useState(0);
+  const onTab = (tabId) => {
+    setActiveTab(tabId);
+  };
+
+  const tabMenu = {
+    0: <DetailInfo />,
+    1: <DetailManage />,
+  };
+
+  const tab = ['정보', '관리'];
+
   return (
     <section className={styles.detail}>
-      <div className={styles.main}>
+      <div className={styles.container}>
         <header className={styles.header}>
           <span className={styles.kind}>사이드 프로젝트</span>
           <span className={styles.title}>
@@ -28,7 +42,24 @@ const ProjectDetail = (props) => {
           </div>
           <span className={styles.situation}>모집중</span>
         </header>
-        <main></main>
+        <main className={styles.main}>
+          <ul className={styles.tab}>
+            {tab.map((v, i) => {
+              return (
+                <li
+                  key={i}
+                  onClick={() => onTab(i)}
+                  className={
+                    activeTab === i ? `${styles.active}` : `${styles.noActive}`
+                  }
+                >
+                  {v}
+                </li>
+              );
+            })}
+          </ul>
+          <div className={styles.contents}>{tabMenu[activeTab]}</div>
+        </main>
       </div>
     </section>
   );

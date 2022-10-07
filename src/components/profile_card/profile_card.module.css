@@ -1,0 +1,46 @@
+.profileCard {
+  width: 18em;
+  padding: 1rem 1rem;
+  border-radius: 0.5rem;
+  border: 0.5px solid gray;
+}
+
+.header {
+  display: flex;
+}
+
+.userImg {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+  margin-right: 2rem;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+}
+
+.school {
+  font-size: 0.9rem;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.footer div {
+  margin-top: 0.5rem;
+}
+
+.footerName {
+  margin-right: 1rem;
+}
