@@ -102,8 +102,8 @@ const ProjectCreate = (props) => {
           const status = response.status;
           if (status === 201) {
             navigate('/');
-            console.log(1);
           }
+          console.log(response);
         });
     } catch (error) {
       console.log(error);
@@ -113,7 +113,7 @@ const ProjectCreate = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
     const skills = skillRef.current.value.split(', ');
-    const description = editorRef.current.getInstance().getMarkdown();
+    const description = editorRef.current.getInstance().getHTML();
     const leaderId = jwtDecode(localStorage.getItem('jwtToken')).sub;
 
     const data = {
@@ -305,9 +305,9 @@ const ProjectCreate = (props) => {
           </div>
         </div>
         <div className={styles.input}>
-          <span className={styles.name}>참고한 아이디어</span>
-          <div className={styles.projectIdea}>
-            <input type='text' disabled />
+          <span className={styles.name}>리더의 담당</span>
+          <div className={styles.leaderRole}>
+            <input type='text' />
           </div>
         </div>
         <footer className={styles.footer}>
