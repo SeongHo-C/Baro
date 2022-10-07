@@ -36,6 +36,15 @@
   border-radius: 0.2rem;
 }
 
+.idea {
+  margin-top: 0.5em;
+}
+
+.ideas {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .tech {
   width: 2.5rem;
   display: flex;

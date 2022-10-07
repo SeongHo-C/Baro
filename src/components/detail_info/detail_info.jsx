@@ -22,6 +22,9 @@ const DetailInfo = (props) => {
           어려움을 가지고 있습니다. 이를 해결하기 위해 아이디어를 공유하고 팀을
           빌딩할 수 있는 웹 서비스를 개발하기로 하였습니다.
         </span>
+        <div className={styles.ideas}>
+          <span className={styles.idea}>@ good idea of lee1234</span>
+        </div>
       </div>
       <div className={styles.container}>
         <span className={styles.name}>프로젝트 기간</span>
