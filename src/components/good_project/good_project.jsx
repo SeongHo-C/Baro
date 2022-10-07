@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import GoodProjectCard from '../good_project_card/good_project_card';
 import styles from './good_project.module.css';
 
 const GoodProject = (props) => {
+  const navigate = useNavigate();
   const [data, setData] = useState({
     1: {
       id: 1,
@@ -40,12 +42,20 @@ const GoodProject = (props) => {
     },
   });
 
+  const handleMoveDetail = (id) => {
+    navigate(`/detail/${id}`);
+  };
+
   return (
     <section className={styles.goodProject}>
       <h1>주목할만한 프로젝트</h1>
       <ul className={styles.projects}>
         {Object.keys(data).map((key) => (
-          <GoodProjectCard key={key} data={data[key]} />
+          <GoodProjectCard
+            key={key}
+            data={data[key]}
+            onMoveDetail={handleMoveDetail}
+          />
         ))}
       </ul>
     </section>

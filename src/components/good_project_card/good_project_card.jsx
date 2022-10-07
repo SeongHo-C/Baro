@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './good_project_card.module.css';
 
-const GoodProjectCard = ({ data }) => {
-  const { image_url, project_name, content, recruit, cnt } = data;
+const GoodProjectCard = ({ data, onMoveDetail }) => {
+  const { id, image_url, project_name, content, recruit, cnt } = data;
 
   return (
-    <li className={styles.container}>
+    <li className={styles.container} onClick={() => onMoveDetail(id)}>
       <img className={styles.img} src={image_url} alt='' />
       <div className={styles.info}>
         <div className={styles.top}>

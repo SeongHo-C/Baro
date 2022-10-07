@@ -13,6 +13,7 @@ import setAuthorizationToken from './service/setAuthorizationToken';
 import { add } from './slices/loginSlice';
 import jwtDecode from 'jwt-decode';
 import ProjectCreate from './screens/project_create/project_create';
+import ProjectDetail from './screens/project_detail/project_detail';
 
 const App = (props) => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const App = (props) => {
       <Routes>
         <Route path='/' exact element={<Main />} />
         <Route path='/main' element={<Main />} />
+        <Route path='/detail/:id' element={<ProjectDetail />} />
         <Route path='/project' element={<Project />} />
         <Route path='/rounge' element={<Rounge />} />
         <Route path='/ranking' element={<Ranking />} />

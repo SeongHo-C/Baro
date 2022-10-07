@@ -1,0 +1,67 @@
+@value makerOrange from '../../common/color.module.css';
+
+.detail {
+  display: flex;
+  justify-content: center;
+}
+
+.main {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  padding: 3em 0;
+  align-items: center;
+}
+
+.kind {
+  padding: 0.5rem 1rem;
+  background-color: makerOrange;
+  color: white;
+}
+
+.title {
+  margin-top: 1.5rem;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.leaderSelect {
+  width: 50%;
+  justify-content: space-between;
+  margin-top: 1rem;
+  display: flex;
+  font-size: 1.1rem;
+}
+
+.leader,
+.cnt {
+  font-weight: 600;
+  color: gray;
+}
+
+.cnt {
+  display: flex;
+}
+
+.leaderInfo,
+.selectCnt {
+  margin-left: 0.2rem;
+}
+
+.heart {
+  margin-right: 0.5rem;
+}
+
+.situation {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  background-color: lightgray;
+  border-radius: 1rem;
+  padding: 0.2rem 0.5rem;
+}
