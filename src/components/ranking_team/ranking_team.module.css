@@ -1,0 +1,20 @@
+@value makerOrange from '../../common/color.module.css';
+
+.table {
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 2em;
+  border-collapse: collapse;
+}
+
+.thead {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+th,
+td {
+  border-bottom: 1px solid gray;
+  padding: 1em 0.5em;
+}
