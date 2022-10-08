@@ -96,6 +96,11 @@
 }
 
 .active {
-  background-color: makerOrange;
-  color: white;
+  border: 1px solid makerOrange;
+  border-bottom: 0;
+  color: makerOrange;
+}
+
+.noActive {
+  border-bottom: 1px solid makerOrange;
 }
