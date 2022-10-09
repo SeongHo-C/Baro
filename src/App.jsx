@@ -14,6 +14,8 @@ import { add } from './slices/loginSlice';
 import jwtDecode from 'jwt-decode';
 import ProjectCreate from './screens/project_create/project_create';
 import ProjectDetail from './screens/project_detail/project_detail';
+import Profile from './screens/profile/profile';
+import Mypage from './screens/mypage/mypage';
 
 const App = (props) => {
   const dispatch = useDispatch();
@@ -42,6 +44,8 @@ const App = (props) => {
         <Route path='/join' element={<Join />} />
         <Route path='/oauth/saving' element={<Oauth />} />
         <Route path='/project/create' element={<ProjectCreate />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/mypage' element={<Mypage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

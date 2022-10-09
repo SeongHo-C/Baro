@@ -10,8 +10,11 @@ const Header = (props) => {
   const [isToggle, setToggle] = useState(true);
   const [resize, setResize] = useState();
   const [modalOpen, setModalOpen] = useState(false);
+  const [logoutOpen, setLogoutOpen] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const dropDownRef = useRef(null);
 
   const isUserId = useSelector((state) => state.user.isAuthenticated);
 
@@ -45,6 +48,25 @@ const Header = (props) => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  // useEffect(() => {
+  //   const onLogoutClick = (e) => {
+  //     if (
+  //       dropDownRef.current !== null &&
+  //       !dropDownRef.current.contains(e.target)
+  //     ) {
+  //       setLogoutOpen(!logoutOpen);
+  //     }
+  //   };
+
+  //   if (logoutOpen) {
+  //     window.addEventListener('click', onLogoutClick);
+  //   }
+
+  //   return () => {
+  //     window.removeEventListener('click', onLogoutClick);
+  //   };
+  // }, [logoutOpen, setLogoutOpen]);
 
   return (
     <header className={styles.container}>
@@ -115,12 +137,42 @@ const Header = (props) => {
               )}
             </li>
           ) : (
-            <button
-              className={`${styles.button} ${styles.profile}`}
-              onClick={onLogout}
-            >
-              <i className='fa-regular fa-user'></i>
-            </button>
+            <div ref={dropDownRef}>
+              <button
+                className={`${styles.button} ${styles.profile}`}
+                onClick={() => {
+                  setLogoutOpen(!logoutOpen);
+                  console.log(logoutOpen);
+                }}
+              >
+                <i className='fa-regular fa-user'></i>
+              </button>
+              <ul
+                className={
+                  logoutOpen
+                    ? `${styles.dropDownMenu} ${styles.active}`
+                    : `${styles.dropDownMenu}`
+                }
+              >
+                <li
+                  onClick={() => {
+                    navigate('/profile');
+                    setLogoutOpen(!logoutOpen);
+                  }}
+                >
+                  프로필
+                </li>
+                <li
+                  onClick={() => {
+                    navigate('/mypage');
+                    setLogoutOpen(!logoutOpen);
+                  }}
+                >
+                  마이페이지
+                </li>
+                <li onClick={onLogout}>로그아웃</li>
+              </ul>
+            </div>
           )}
         </ul>
         <button className={styles.toggle} onClick={toggleBtn}>
