@@ -1,0 +1,106 @@
+@value makerOrange from '../../common/color.module.css';
+
+.ranking {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  margin: 3em 0;
+}
+
+.headerText {
+  font-size: 1rem;
+  color: makerOrange;
+  font-weight: 700;
+}
+
+.headerText2 {
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+.kind {
+  padding: 0.5rem 1rem;
+  background-color: makerOrange;
+  color: white;
+  border-radius: 0.5rem;
+}
+
+.title {
+  margin-top: 1.5rem;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.leaderSelect {
+  width: 50%;
+  justify-content: space-between;
+  margin-top: 1rem;
+  display: flex;
+  font-size: 1.1rem;
+}
+
+.leader,
+.cnt {
+  font-weight: 600;
+  color: gray;
+}
+
+.cnt {
+  display: flex;
+}
+
+.leaderInfo,
+.selectCnt {
+  margin-left: 0.2rem;
+}
+
+.heart {
+  margin-right: 0.5rem;
+}
+
+.situation {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  background-color: lightgray;
+  border-radius: 1rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.container2 {
+  display: flex;
+  justify-content: center;
+}
+
+.main {
+  width: 100%;
+}
+
+.tab {
+  display: flex;
+}
+
+.tab li {
+  padding: 0.5rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 0.2rem;
+}
+
+.active {
+  border: 1px solid makerOrange;
+  border-bottom: 0;
+  color: makerOrange;
+}
+
+.noActive {
+  border-bottom: 1px solid makerOrange;
+}
