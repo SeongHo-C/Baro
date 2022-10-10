@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { ko } from 'date-fns/esm/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './project_create.module.css';
 import axios from 'axios';
-import Job from '../../components/job/job';
+import Job from '../../components/recruit_job/recruit_job';
 import { Editor, Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
@@ -13,6 +13,7 @@ import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import jwtDecode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import setAuthorizationToken from '../../service/setAuthorizationToken';
+import LeaderJob from '../../components/leader_job/leader_job';
 
 const ProjectCreate = (props) => {
   const [selectPurpose, setSelectPurpose] = useState('사이드 프로젝트');
@@ -24,6 +25,9 @@ const ProjectCreate = (props) => {
   const [recruits, setRecruits] = useState({
     1: { id: 1, jobId: 7, recruitCount: 1 },
   });
+  const [jobs, setJobs] = useState();
+  const [leaderJobId, setLeaderJobId] = useState(7);
+
   const url = process.env.REACT_APP_URL;
   const nameRef = useRef();
   const editorRef = useRef();
@@ -31,6 +35,7 @@ const ProjectCreate = (props) => {
   const openTalkRef = useRef();
   const purposes = ['사이드 프로젝트', '경진대회'];
   const navigate = useNavigate();
+
   const handlePurpose = (e) => {
     setSelectPurpose(e.target.value);
   };
@@ -92,7 +97,19 @@ const ProjectCreate = (props) => {
     onUpdateRecruit(recruit);
   };
 
-  const onEditorChange = (e) => {};
+  const handleLeaderJobId = (id) => {
+    setLeaderJobId(id);
+  };
+
+  const getJob = useCallback(async () => {
+    try {
+      await axios.get(`${url}/job`).then((response) => {
+        setJobs(response.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
   const onProjectCreate = async (data) => {
     try {
@@ -128,6 +145,7 @@ const ProjectCreate = (props) => {
       startDate,
       endDate,
       leaderId,
+      leaderJobId,
     };
     onProjectCreate(data);
   };
@@ -138,6 +156,10 @@ const ProjectCreate = (props) => {
     } else {
       console.log('token error');
     }
+  }, []);
+
+  useEffect(() => {
+    getJob();
   }, []);
 
   return (
@@ -239,15 +261,17 @@ const ProjectCreate = (props) => {
             </div>
           </div>
         </div>
+
         <div className={styles.input}>
           <span className={styles.name}>모집 인원</span>
           <ul>
-            {recruits &&
+            {jobs &&
               Object.keys(recruits).map((key) => (
                 <Job
                   key={key}
                   recruit={recruits[key]}
                   onUpdate={onUpdateRecruit}
+                  jobs={jobs}
                 />
               ))}
           </ul>
@@ -278,7 +302,6 @@ const ProjectCreate = (props) => {
               hideModeSwitch={true}
               plugins={[colorSyntax]}
               ref={editorRef}
-              onChange={onEditorChange}
               // language='ko-kr'
             />
           </div>
@@ -307,10 +330,8 @@ const ProjectCreate = (props) => {
           </div>
         </div>
         <div className={styles.input}>
-          <span className={styles.name}>리더의 담당</span>
-          <div className={styles.leaderRole}>
-            <input type='text' />
-          </div>
+          <span className={styles.name}>리더 담당</span>
+          {<LeaderJob jobs={jobs} onUpdate={handleLeaderJobId} />}
         </div>
         <footer className={styles.footer}>
           <button className={styles.footerBtn}>작성 완료</button>

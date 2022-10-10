@@ -1,14 +1,10 @@
 import axios from 'axios';
-import styles from './job.module.css';
+import styles from './recruit_job.module.css';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-const Job = ({ onUpdate, recruit }) => {
-  const [jobs, setJobs] = useState();
+const Job = ({ onUpdate, recruit, jobs }) => {
   const [Option, setOption] = useState(0);
-  const [jobId, setJobId] = useState();
-  const [count, setCount] = useState(1);
 
-  const url = process.env.REACT_APP_URL;
   const selectRef = useRef();
   const jobIdRef = useRef();
   const recruitRef = useRef();
@@ -21,15 +17,6 @@ const Job = ({ onUpdate, recruit }) => {
     { id: 5, value: 5 },
   ];
 
-  const getJob = useCallback(async () => {
-    try {
-      await axios.get(`${url}/job`).then((response) => {
-        setJobs(response.data);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  });
   const handleJobId = (e) => {
     if (e.currentTarget === null) return;
 
@@ -53,10 +40,6 @@ const Job = ({ onUpdate, recruit }) => {
       recruitCount: Number(recruitRef.current.value),
     });
   };
-
-  useEffect(() => {
-    getJob();
-  }, []);
 
   return (
     <li className={styles.container}>

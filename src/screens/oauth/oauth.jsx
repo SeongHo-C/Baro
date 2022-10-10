@@ -15,6 +15,7 @@ const Oauth = (props) => {
   const onRefresh = async () => {
     const accessToken = localStorage.getItem('jwtToken');
     const refreshToken = localStorage.getItem('refreshToken');
+    setAuthorizationToken(accessToken);
     try {
       await axios
         .post(`${url}/token/reissue`, {
