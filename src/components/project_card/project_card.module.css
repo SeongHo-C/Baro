@@ -38,14 +38,14 @@
   margin-bottom: 0.5rem;
 }
 
-.techCount {
+.counts {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   font-size: 1rem;
 }
 
-.projectName,
-.tech {
+.leaderNickname,
+.projectName {
   font-size: 1rem;
 }
 
@@ -57,4 +57,15 @@
 .recruitText {
   padding: 0 0.3rem;
   color: red;
+}
+
+.count {
+  font-size: 0.9rem;
+  margin-left: 1rem;
+}
+
+.leaderNickname {
+  font-size: 0.8rem;
+  color: gray;
+  margin-top: 0.5rem;
 }

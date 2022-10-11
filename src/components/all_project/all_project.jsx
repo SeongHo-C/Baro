@@ -24,11 +24,7 @@ const AllProject = (props) => {
         <input type='checkbox' /> 모집중
       </div>
       <div className={styles.projectCard}>
-        <ul className={styles.project}>
-          {Object.keys(projects).map((key) => (
-            <ProjectCard key={key} project={projects[key]} />
-          ))}
-        </ul>
+        <ul className={styles.project}></ul>
       </div>
     </section>
   );

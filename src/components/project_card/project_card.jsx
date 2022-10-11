@@ -1,31 +1,93 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import LikeButton from '../like_button/like_button';
 import styles from './project_card.module.css';
+import _ from 'lodash';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const ProjectCard = ({ project }) => {
-  const { id, image_url, kind, project_name, tech, complete, member, cnt } =
-    project;
+  const {
+    id,
+    leaderNickname,
+    imagePath,
+    purpose,
+    title,
+    state,
+    jobs,
+    tech,
+    viewCount,
+    likeCount,
+  } = project;
 
-  const onClick = () => {
-    console.log(id);
+  const url = process.env.REACT_APP_URL;
+  const totalRecruit = _.sumBy(jobs, (job) => job.recruitCount);
+  const completeRecruit = _.sumBy(jobs, (job) => job.completeCount);
+  const [imgSrc, setImgSrc] = useState('');
+
+  const getState = (state) => {
+    switch (state) {
+      case 'R':
+        return '모집중';
+      case 'C':
+        return '진행중';
+      case 'E':
+        return '완료';
+    }
   };
+
+  const getImage = async (imagePath) => {
+    try {
+      axios
+        .get(`${url}/image/project/${imagePath}`, {
+          responseType: 'blob',
+        })
+        .then((response) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(response.data);
+          return new Promise((resolve) => {
+            reader.onload = () => {
+              setImgSrc(reader.result);
+              resolve();
+            };
+          });
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const navigate = useNavigate();
+  const onClick = () => {
+    navigate(`/detail/${id}`);
+  };
+
+  useEffect(() => {
+    getImage(imagePath);
+  }, []);
+
   return (
     <li className={styles.container} onClick={onClick}>
-      <img className={styles.img} src={image_url} alt='' />
+      {imgSrc ? <img className={styles.img} src={imgSrc} alt='로딩중' /> : ''}
       <div className={styles.info}>
-        <span className={styles.kind}>{kind}</span>
-        <span className={styles.projectName}>{project_name}</span>
-        <div className={styles.techCount}>
-          <span className={styles.tech}>{tech}</span>
+        <span className={styles.kind}>{purpose}</span>
+        <span className={styles.projectName}>{title}</span>
+        <span className={styles.leaderNickname}>{leaderNickname}</span>
+        <div className={styles.counts}>
+          <span className={styles.count}>
+            <i className='fa-regular fa-heart'></i>
+            <span>{` ${likeCount}`}</span>
+          </span>
           <span className={styles.count}>
             <i className='fa-regular fa-eye'></i>
-            {cnt}
+            <span>{` ${viewCount}`}</span>
           </span>
         </div>
       </div>
       <div className={styles.recruit}>
-        <span>모집완료</span>
-        <span className={styles.recruitText}>{`${complete}/${member}`}</span>
+        <span>{`${getState(state)}`}</span>
+        <span
+          className={styles.recruitText}
+        >{`${completeRecruit} / ${totalRecruit}`}</span>
       </div>
       {/* <div className={styles.like}>{<LikeButton />}</div> */}
     </li>

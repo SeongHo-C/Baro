@@ -1,20 +1,25 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import ProjectCard from '../../components/project_card/project_card';
+import { getRecentProjects } from '../../slices/projectsSlice';
 import styles from './main.module.css';
 
 const Main = (props) => {
-  // const [isLogin, setIsLogin] = useState(false);
-  const projects = useSelector((state) => {
-    return state.projects;
-  });
+  const projects = useSelector((state) => state.projects.recent);
+  console.log(projects);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const moveProjects = () => {
     navigate('/project');
   };
+
+  useEffect(() => {
+    dispatch(getRecentProjects());
+  }, []);
 
   return (
     <section className={styles.container}>

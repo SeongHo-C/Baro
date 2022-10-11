@@ -1,84 +1,28 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-const initialState = {
-  1: {
-    id: 1,
-    kind: '사이드 프로젝트',
-    project_name: '박인우',
-    name: '박인우',
-    image_url: '../../../images/testImage.png',
-    recruit: 'backend',
-    cnt: 20,
-    member: 3,
-    complete: 2,
-    tech: 'spring boot',
-  },
-  2: {
-    id: 2,
-    kind: '경진대회',
-    project_name: '이성호',
-    name: '이성호',
-    image_url: '../../../images/testImage.png',
-    recruit: 'frontend',
-    cnt: 20,
-    member: 3,
-    complete: 1,
-    tech: 'react',
-  },
-  3: {
-    id: 3,
-    kind: '경진대회',
-    project_name: '이성호',
-    name: '이성호',
-    image_url: '../../../images/testImage.png',
-    recruit: 'frontend',
-    cnt: 20,
-    member: 3,
-    complete: 1,
-    tech: 'react',
-  },
-  4: {
-    id: 4,
-    kind: '경진대회',
-    project_name: '이성호',
-    name: '이성호',
-    image_url: '../../../images/testImage.png',
-    recruit: 'frontend',
-    cnt: 20,
-    member: 2,
-    complete: 1,
-    tech: 'react',
-  },
-  5: {
-    id: 5,
-    kind: '경진대회',
-    project_name: '이성호',
-    name: '이성호',
-    image_url: '../../../images/testImage.png',
-    recruit: 'frontend',
-    cnt: 20,
-    member: 2,
-    complete: 1,
-    tech: 'react',
-  },
-  6: {
-    id: 6,
-    kind: '경진대회',
-    project_name: '이성호',
-    name: '이성호',
-    image_url: '../../../images/banner.png',
-    recruit: 'frontend',
-    cnt: 20,
-    member: 2,
-    complete: 1,
-    tech: 'react',
-  },
-};
+const getRecentProjects = createAsyncThunk('project/recent', async () => {
+  const url = process.env.REACT_APP_URL;
+  try {
+    const response = await axios.get(`${url}/project/recent?size=8`);
+    return response.data;
+  } catch (error) {
+    console.log('axios 에러');
+  }
+});
 
 const projectsSlice = createSlice({
   name: 'projects',
-  initialState,
+  initialState: {
+    recent: [],
+  },
   reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(getRecentProjects.fulfilled, (state, action) => {
+      state.recent = action.payload;
+    });
+  },
 });
 
 export default projectsSlice;
+export { getRecentProjects };
