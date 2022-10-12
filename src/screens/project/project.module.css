@@ -33,6 +33,21 @@
   display: flex;
 }
 
+.title {
+  font-size: 1.17em;
+  font-weight: 600;
+}
+
+.newProject {
+  width: 45em;
+}
+
+.new {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 @media screen and (max-width: mediaQuery) {
   .container1 {
     flex-direction: column;

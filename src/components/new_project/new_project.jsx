@@ -1,38 +1,93 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import _ from 'lodash';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './new_project.module.css';
 
-const NewProject = (props) => {
-  const [data, setData] = useState({
-    id: 1,
-    kind: '사이드 프로젝트',
-    image_url: '../../../images/testImage.png',
-    project_name: '아이디어 공유 및 팀빌딩 서비스',
-    content: '아이디어를 공유하고 팀을 빌딩해보세요~',
-    member: 4,
-    currentMember: 1,
-    cnt: 20,
-  });
+const NewProject = ({ project }) => {
+  const {
+    id,
+    leaderNickname,
+    imagePath,
+    purpose,
+    title,
+    state,
+    jobs,
+    tech,
+    viewCount,
+    likeCount,
+  } = project;
+
+  const url = process.env.REACT_APP_URL;
+  const totalRecruit = _.sumBy(jobs, (job) => job.recruitCount);
+  const completeRecruit = _.sumBy(jobs, (job) => job.completeCount);
+  const [imgSrc, setImgSrc] = useState('');
+
+  const getState = (state) => {
+    switch (state) {
+      case 'R':
+        return '모집중';
+      case 'C':
+        return '진행중';
+      case 'E':
+        return '완료';
+    }
+  };
+
+  const navigate = useNavigate();
+  const moveProjectDetail = () => {
+    navigate(`/detail/${id}`);
+  };
+
+  const getImage = async (imagePath) => {
+    try {
+      axios
+        .get(`${url}/image/project/${imagePath}`, {
+          responseType: 'blob',
+        })
+        .then((response) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(response.data);
+          return new Promise((resolve) => {
+            reader.onload = () => {
+              setImgSrc(reader.result);
+              resolve();
+            };
+          });
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getImage(imagePath);
+  }, []);
 
   return (
     <section className={styles.newProject}>
-      <h1 className={styles.title}>신규 프로젝트</h1>
-      <div className={styles.container}>
-        <img className={styles.img} src={data.image_url} alt='' />
+      <div className={styles.container} onClick={moveProjectDetail}>
+        {imgSrc ? <img className={styles.img} src={imgSrc} alt='로딩중' /> : ''}
         <div className={styles.info}>
-          <span className={styles.kind}>사이드 프로젝트</span>
-          <span className={styles.name}>아이디어 공유 및 팀빌딩 서비스</span>
-          <span className={styles.content}>
-            이 프로젝트는 아이디어를 공유하는 프로젝트입니다. 대학교에 다니고
-            있는 친구들이 프로젝트를 하는데 있어서 부담감을 줄일 수 있도록 하기
-            위함입니다. 하하하하
-          </span>
+          <span className={styles.kind}>{purpose}</span>
+          <span className={styles.projectName}>{title}</span>
+          <span className={styles.leaderNickname}>{leaderNickname}</span>
+          <div className={styles.counts}>
+            <span className={styles.count}>
+              <i className='fa-regular fa-heart'></i>
+              <span>{` ${likeCount}`}</span>
+            </span>
+            <span className={styles.count}>
+              <i className='fa-regular fa-eye'></i>
+              <span>{` ${viewCount}`}</span>
+            </span>
+          </div>
         </div>
-        <div className={styles.subContent}>
-          <span className={styles.count}>
-            <i className='fa-regular fa-eye'></i>
-            {` ${data.cnt}`}
-          </span>
-          <span>모집완료 {`${data.currentMember} / ${data.member}`}</span>
+        <div className={styles.recruit}>
+          <span>{`${getState(state)}`}</span>
+          <span
+            className={styles.recruitText}
+          >{`${completeRecruit} / ${totalRecruit}`}</span>
         </div>
       </div>
     </section>

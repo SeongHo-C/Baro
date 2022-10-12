@@ -3,7 +3,7 @@ import ProfileCard from '../profile_card/profile_card';
 import styles from './detail_info.module.css';
 
 const DetailInfo = (props) => {
-  const language = 'react';
+  const language = 'spring';
   return (
     <section className={styles.detailInfo}>
       <div className={styles.container}>

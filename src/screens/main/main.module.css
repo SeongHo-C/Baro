@@ -9,6 +9,10 @@
   height: 20em;
 }
 
+.moveTxt {
+  margin-bottom: 0.5em;
+}
+
 .moveContainer {
   margin-top: 3em;
   display: flex;

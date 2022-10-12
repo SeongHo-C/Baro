@@ -48,7 +48,6 @@ const GoodProject = (props) => {
 
   return (
     <section className={styles.goodProject}>
-      <h1>주목할만한 프로젝트</h1>
       <ul className={styles.projects}>
         {Object.keys(data).map((key) => (
           <GoodProjectCard

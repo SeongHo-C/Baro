@@ -32,7 +32,9 @@ const Main = (props) => {
       </div>
       <div className={styles.moveContainer}>
         <div className={styles.moveProjects}>
-          <span>따끈따끈, 신규 프로젝트를 만나보세요</span>
+          <span className={styles.moveTxt}>
+            따끈따끈, 신규 프로젝트를 만나보세요
+          </span>
           <button onClick={moveProjects}>
             <span style={{ color: 'red' }}>new!!! </span>
             <i className='fa-solid fa-angle-right'></i>
