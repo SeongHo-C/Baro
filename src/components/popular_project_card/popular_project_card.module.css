@@ -32,6 +32,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 0.05em;
+  font-weight: 500;
 }
 
 .recruit {

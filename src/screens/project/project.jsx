@@ -3,21 +3,17 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AllProject from '../../components/all_project/all_project';
 import NewProject from '../../components/new_project/new_project';
-import {
-  getPopularProjects,
-  getRecentProjects,
-} from '../../slices/projectsSlice';
 import styles from './project.module.css';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import ProjectCard from '../../components/project_card/project_card';
 import PopularProjectCard from '../../components/popular_project_card/popular_project_card';
+import { getRecentProjects } from '../../slices/projects/recentSlice';
+import { getPopularProjects } from '../../slices/projects/popularSlice';
 
 const Project = (props) => {
-  const newProjects = useSelector((state) => state.projects.recent);
-  const popularProjects = useSelector((state) => state.projects.popular);
-  console.log(popularProjects);
+  const recentProjects = useSelector((state) => state.recent.project);
+  const popularProjects = useSelector((state) => state.popular.project);
   const dispatch = useDispatch();
 
   const settings = {
@@ -83,8 +79,8 @@ const Project = (props) => {
           <div className={styles.newProject}>
             <h1 className={styles.title}>신규 프로젝트</h1>
             <Slider className={styles.new} {...settings}>
-              {newProjects &&
-                newProjects.map((project) => (
+              {recentProjects &&
+                recentProjects.map((project) => (
                   <NewProject key={project.id} project={project} />
                 ))}
             </Slider>
@@ -92,9 +88,10 @@ const Project = (props) => {
           <div className={styles.popularProject}>
             <h1 className={styles.title}>주목할만한 프로젝트</h1>
             <ul>
-              {popularProjects.map((project) => (
-                <PopularProjectCard key={project.id} project={project} />
-              ))}
+              {popularProjects &&
+                popularProjects.map((project) => (
+                  <PopularProjectCard key={project.id} project={project} />
+                ))}
             </ul>
           </div>
         </div>

@@ -1,10 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import loginSlice from './slices/loginSlice';
-import projectsSlice from './slices/projectsSlice';
+import listSlice from './slices/projects/listSlice';
+import popularSlice from './slices/projects/popularSlice';
+import recentSlice from './slices/projects/recentSlice';
 
 const rootReducer = combineReducers({
   user: loginSlice.reducer,
-  projects: projectsSlice.reducer,
+  recent: recentSlice.reducer,
+  popular: popularSlice.reducer,
+  list: listSlice.reducer,
 });
 
 const store = configureStore({ reducer: rootReducer });

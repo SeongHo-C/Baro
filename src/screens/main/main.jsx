@@ -3,12 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import ProjectCard from '../../components/project_card/project_card';
-import { getRecentProjects } from '../../slices/projectsSlice';
+import { getRecentProjects } from '../../slices/projects/recentSlice';
 import styles from './main.module.css';
 
 const Main = (props) => {
-  const projects = useSelector((state) => state.projects.recent);
-  console.log(projects);
+  const projects = useSelector((state) => state.recent.project);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,9 +42,10 @@ const Main = (props) => {
       </div>
       <div className={styles.projectCard}>
         <ul className={styles.project}>
-          {Object.keys(projects).map((key) => (
-            <ProjectCard key={key} project={projects[key]} />
-          ))}
+          {projects &&
+            Object.keys(projects).map((key) => (
+              <ProjectCard key={key} project={projects[key]} />
+            ))}
         </ul>
       </div>
     </section>
