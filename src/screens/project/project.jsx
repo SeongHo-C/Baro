@@ -2,19 +2,22 @@ import axios from 'axios';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AllProject from '../../components/all_project/all_project';
-import GoodProject from '../../components/good_project/good_project';
 import NewProject from '../../components/new_project/new_project';
-import { getRecentProjects } from '../../slices/projectsSlice';
+import {
+  getPopularProjects,
+  getRecentProjects,
+} from '../../slices/projectsSlice';
 import styles from './project.module.css';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ProjectCard from '../../components/project_card/project_card';
+import PopularProjectCard from '../../components/popular_project_card/popular_project_card';
 
 const Project = (props) => {
   const newProjects = useSelector((state) => state.projects.recent);
-  console.log(newProjects);
-
+  const popularProjects = useSelector((state) => state.projects.popular);
+  console.log(popularProjects);
   const dispatch = useDispatch();
 
   const settings = {
@@ -24,7 +27,7 @@ const Project = (props) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 5000,
     cssEase: 'linear',
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
@@ -38,11 +41,7 @@ const Project = (props) => {
         style={{
           ...style,
           display: 'block',
-          right: '5rem',
-          background: 'lightgray',
-          width: '1.5rem',
-          borderRadius: '50%',
-          textAlign: 'center',
+          right: '2.2rem',
         }}
         onClick={onClick}
       />
@@ -57,12 +56,8 @@ const Project = (props) => {
         style={{
           ...style,
           display: 'block',
-          background: 'lightgray',
-          left: '5rem',
+          left: '2.2rem',
           zIndex: 1,
-          width: '1.5rem',
-          borderRadius: '50%',
-          textAlign: 'center',
         }}
         onClick={onClick}
       />
@@ -71,7 +66,8 @@ const Project = (props) => {
 
   useEffect(() => {
     dispatch(getRecentProjects());
-  }, []);
+    dispatch(getPopularProjects());
+  }, [dispatch]);
 
   return (
     <section className={styles.container}>
@@ -93,9 +89,13 @@ const Project = (props) => {
                 ))}
             </Slider>
           </div>
-          <div>
+          <div className={styles.popularProject}>
             <h1 className={styles.title}>주목할만한 프로젝트</h1>
-            <GoodProject />
+            <ul>
+              {popularProjects.map((project) => (
+                <PopularProjectCard key={project.id} project={project} />
+              ))}
+            </ul>
           </div>
         </div>
         <AllProject />

@@ -39,7 +39,15 @@
 }
 
 .newProject {
-  width: 45em;
+  width: 40%;
+  flex-basis: 50%;
+}
+
+.popularProject {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+  margin-left: 7em;
 }
 
 .new {

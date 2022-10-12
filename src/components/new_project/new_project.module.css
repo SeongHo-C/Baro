@@ -8,7 +8,7 @@
   width: 30em;
   list-style: none;
   border: 0.5px solid lightgray;
-  margin: 0 7.5em;
+  margin: 0 5em;
   border-radius: 1rem;
   cursor: pointer;
 }
@@ -50,6 +50,10 @@
   justify-content: flex-end;
   font-size: 1rem;
 }
+.count {
+  font-size: 0.9rem;
+  margin-left: 1rem;
+}
 
 .leaderNickname,
 .projectName {
@@ -64,11 +68,6 @@
 .recruitText {
   padding: 0 0.3rem;
   color: red;
-}
-
-.count {
-  font-size: 0.9rem;
-  margin-left: 1rem;
 }
 
 .leaderNickname {

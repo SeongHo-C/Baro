@@ -1,0 +1,64 @@
+.container {
+  display: flex;
+  width: 90%;
+  border: 0.5px solid lightgray;
+  padding: 1.05rem;
+  margin-bottom: 1em;
+  border-radius: 0.5rem;
+  font-weight: 600;
+}
+
+.info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.img {
+  width: 20%;
+  height: 4.8rem;
+  border-radius: 0.5rem;
+  margin-right: 1.5em;
+  border: 0.5px solid lightgray;
+}
+
+.purpose {
+  font-size: 0.8rem;
+  color: gray;
+  margin-bottom: 0.2em;
+}
+
+.recruitCount {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.05em;
+}
+
+.recruit {
+  font-size: 0.8rem;
+}
+
+.recruitText {
+  padding: 0 0.3rem;
+  color: red;
+}
+
+.leaderNickname,
+.projectName {
+  font-size: 1rem;
+}
+
+.leaderNickname {
+  font-size: 0.8rem;
+  color: gray;
+  margin-top: 0.5rem;
+}
+
+.counts {
+  display: flex;
+  justify-content: flex-end;
+}
+.count {
+  font-size: 0.8rem;
+  margin-left: 1rem;
+}
