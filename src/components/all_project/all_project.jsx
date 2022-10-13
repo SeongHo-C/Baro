@@ -11,6 +11,7 @@ const AllProject = (props) => {
   const schoolRef = useRef();
   const purposeRef = useRef();
   const jobIdRef = useRef();
+  const stateRef = useRef();
 
   const projects = useSelector((state) => state.list.project);
   console.log(projects);
@@ -29,24 +30,39 @@ const AllProject = (props) => {
 
   const handleProjectList = (e) => {
     const index = jobIdRef.current.selectedIndex;
-    console.log(e.nativeEvent.target[index].id);
+    const jobId = index === 0 ? '' : e.nativeEvent.target[index].id;
+    const school =
+      schoolRef.current.value === '학교' ? '' : schoolRef.current.value;
+    const purpose =
+      purposeRef.current.value === '목적' ? '' : purposeRef.current.value;
+    const state = stateRef.current.value === '모집중' ? 'R' : '';
+
+    dispatch(getProjects([school, purpose, jobId, state]));
   };
 
   useEffect(() => {
     getJob();
-    dispatch(getProjects('', '', ''));
+    dispatch(getProjects(['', '', '', '']));
   }, []);
 
   return (
     <section>
       <h1>전체 프로젝트</h1>
       <div className={styles.selectBox}>
-        <select ref={schoolRef} className={styles.select}>
+        <select
+          ref={schoolRef}
+          className={styles.select}
+          onChange={handleProjectList}
+        >
           <option>학교</option>
           <option>인하공업전문대학</option>
           <option>인하대학교</option>
         </select>
-        <select ref={purposeRef} className={styles.select}>
+        <select
+          ref={purposeRef}
+          className={styles.select}
+          onChange={handleProjectList}
+        >
           <option>목적</option>
           <option>사이드 프로젝트</option>
           <option>경진대회</option>
@@ -68,7 +84,13 @@ const AllProject = (props) => {
               })
             )}
         </select>
-        <input type='checkbox' value='모집중' /> 모집중
+        <input
+          ref={stateRef}
+          type='checkbox'
+          value='모집중'
+          onChange={handleProjectList}
+        />{' '}
+        모집중
       </div>
       <div className={styles.projectCard}>
         <ul className={styles.project}>
