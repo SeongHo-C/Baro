@@ -10,7 +10,6 @@ const ProjectDetail = (props) => {
   const [data, setData] = useState();
   const url = process.env.REACT_APP_URL;
   const id = useParams().id;
-  console.log(data);
 
   const onTab = (tabId) => {
     setActiveTab(tabId);

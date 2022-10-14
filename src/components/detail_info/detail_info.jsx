@@ -1,9 +1,11 @@
-import React from 'react';
+import axios from 'axios';
+import jwtDecode from 'jwt-decode';
+import React, { useEffect, useState } from 'react';
 import ProfileCard from '../profile_card/profile_card';
 import styles from './detail_info.module.css';
 
 const DetailInfo = ({ data }) => {
-  const { jobs, leaderId } = data.summary;
+  const { jobs, leaderId, id } = data.summary;
   const {
     description,
     loungeId,
@@ -12,13 +14,14 @@ const DetailInfo = ({ data }) => {
     skill,
     ideaProviderName,
     team,
+    applicants,
   } = data;
 
-  console.log(team[0]);
-  const getSkill = (skill) => {
-    return skill.toLowerCase();
-  };
+  const url = process.env.REACT_APP_URL;
+  const loginId = jwtDecode(localStorage.getItem('jwtToken')).sub;
+  const [apply, setApply] = useState(false);
 
+  console.log(data);
   const getDate = (start, end) => {
     const st = new Date(start).getTime();
     const et = new Date(end).getTime();
@@ -28,6 +31,35 @@ const DetailInfo = ({ data }) => {
 
     return days;
   };
+
+  const handleProjectApply = async (jobId) => {
+    if (leaderId !== loginId) {
+      try {
+        axios
+          .post(`${url}/project/apply`, {
+            projectId: id,
+            jobId,
+          })
+          .then((res) => console.log(res));
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      alert('리더는 지원하실 수 없습니다.');
+    }
+  };
+
+  const applyCheck = () => {
+    applicants.map((applicant) => {
+      if (applicant.memberId === loginId) {
+        setApply(true);
+      }
+    });
+  };
+
+  useEffect(() => {
+    applyCheck();
+  }, []);
 
   return (
     <section className={styles.detailInfo}>
@@ -40,7 +72,16 @@ const DetailInfo = ({ data }) => {
               <span
                 style={{ color: 'red' }}
               >{`${job.completeCount} / ${job.recruitCount}`}</span>
-              <button className={styles.recruitBtn}>지원</button>
+              {data ? (
+                <button className={styles.recruitBtn}>지원 취소</button>
+              ) : (
+                <button
+                  className={styles.recruitBtn}
+                  onClick={() => handleProjectApply(job.jobId)}
+                >
+                  지원
+                </button>
+              )}
             </div>
           ))}
         </div>
