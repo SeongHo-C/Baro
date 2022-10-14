@@ -17,6 +17,7 @@
   flex-direction: column;
   padding: 3em 0;
   align-items: center;
+  justify-content: center;
 }
 
 .kind {
@@ -33,7 +34,6 @@
 }
 
 .leaderSelect {
-  width: 50%;
   justify-content: space-between;
   margin-top: 1rem;
   display: flex;
@@ -44,6 +44,7 @@
 .cnt {
   font-weight: 600;
   color: gray;
+  margin: 0 5rem;
 }
 
 .cnt {

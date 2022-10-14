@@ -1,66 +1,106 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import DetailInfo from '../../components/detail_info/detail_info';
 import DetailManage from '../../components/detail_manage/detail_manage';
 import styles from './project_detail.module.css';
 
 const ProjectDetail = (props) => {
   const [activeTab, setActiveTab] = useState(0);
+  const [data, setData] = useState();
+  const url = process.env.REACT_APP_URL;
+  const id = useParams().id;
+  console.log(data);
+
   const onTab = (tabId) => {
     setActiveTab(tabId);
   };
 
   const tabMenu = {
-    0: <DetailInfo />,
+    0: data && <DetailInfo data={data} />,
     1: <DetailManage />,
   };
 
   const tab = ['정보', '관리'];
 
+  const getState = (state) => {
+    switch (state) {
+      case 'R':
+        return '모집중';
+      case 'C':
+        return '진행중';
+      case 'E':
+        return '완료';
+    }
+  };
+
+  const getData = async () => {
+    try {
+      axios.get(`${url}/project/${id}`).then((res) => setData(res.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <section className={styles.detail}>
-      <div className={styles.container}>
-        <header className={styles.header}>
-          <span className={styles.kind}>사이드 프로젝트</span>
-          <span className={styles.title}>
-            [인하공업전문대학] 아이디어 공유 및 팀빌딩 서비스
-          </span>
-          <div className={styles.leaderSelect}>
-            <div className={styles.leader}>
-              <i className='fa-solid fa-user'></i>
-              <span className={styles.leaderInfo}>lee1234</span>
-            </div>
-            <div className={styles.cnt}>
-              <div className={styles.heart}>
-                <i className='fa-regular fa-heart'></i>
-                <span className={styles.selectCnt}>14</span>
+      {data && (
+        <div className={styles.container}>
+          <header className={styles.header}>
+            <span className={styles.kind}>{data.summary.purpose}</span>
+            <span className={styles.title}>{data.summary.title}</span>
+            <div className={styles.leaderSelect}>
+              <div className={styles.leader}>
+                <i className='fa-regular fa-user'></i>
+                <span className={styles.leaderInfo}>
+                  {data.summary.leaderNickname}
+                </span>
               </div>
-              <div>
-                <i className='fa-regular fa-eye'></i>
-                <span className={styles.selectCnt}>20</span>
+              <div className={styles.cnt}>
+                <div className={styles.heart}>
+                  <i className='fa-regular fa-heart'></i>
+                  <span className={styles.selectCnt}>
+                    {data.summary.likeCount}
+                  </span>
+                </div>
+                <div>
+                  <i className='fa-regular fa-eye'></i>
+                  <span className={styles.selectCnt}>
+                    {data.summary.viewCount}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-          <span className={styles.situation}>모집중</span>
-        </header>
-        <main className={styles.main}>
-          <ul className={styles.tab}>
-            {tab.map((v, i) => {
-              return (
-                <li
-                  key={i}
-                  onClick={() => onTab(i)}
-                  className={
-                    activeTab === i ? `${styles.active}` : `${styles.noActive}`
-                  }
-                >
-                  {v}
-                </li>
-              );
-            })}
-          </ul>
-          <div className={styles.contents}>{tabMenu[activeTab]}</div>
-        </main>
-      </div>
+            <span className={styles.situation}>{`${getState(
+              data.summary.state
+            )}`}</span>
+          </header>
+          <main className={styles.main}>
+            <ul className={styles.tab}>
+              {tab.map((v, i) => {
+                return (
+                  <li
+                    key={i}
+                    onClick={() => onTab(i)}
+                    className={
+                      activeTab === i
+                        ? `${styles.active}`
+                        : `${styles.noActive}`
+                    }
+                  >
+                    {v}
+                  </li>
+                );
+              })}
+            </ul>
+            <div className={styles.contents}>{tabMenu[activeTab]}</div>
+          </main>
+        </div>
+      )}
     </section>
   );
 };

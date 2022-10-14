@@ -23,6 +23,16 @@
   margin-bottom: 1.5rem;
 }
 
+.description {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.recruitCard {
+  margin-bottom: 0.5rem;
+}
+
 .recruitJob {
   margin-right: 10em;
 }
@@ -45,11 +55,16 @@
   justify-content: flex-end;
 }
 
+.techs {
+  display: flex;
+}
+
 .tech {
   width: 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 1rem;
 }
 
 .techImg {

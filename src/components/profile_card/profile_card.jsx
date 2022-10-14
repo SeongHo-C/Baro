@@ -1,30 +1,33 @@
 import React from 'react';
 import styles from './profile_card.module.css';
 
-const ProfileCard = (props) => {
+const ProfileCard = ({ data }) => {
+  const { userProfileImage, nickname, school, profileJobName, projectJobName } =
+    data;
+
   return (
     <section className={styles.profileCard}>
       <div className={styles.header}>
         <img
           className={styles.userImg}
-          src='../../images/testImage.png'
+          src={userProfileImage ? '' : '../../images/user.png'}
           alt=''
         />
         <div className={styles.user}>
-          <span className={styles.name}>lee1234</span>
+          <span className={styles.name}>{nickname}</span>
           <div className={styles.school}>
-            <span>인하공업전문대학</span>
+            <span>{school}</span>
           </div>
         </div>
       </div>
       <div className={styles.footer}>
         <div>
           <span className={styles.footerName}>[직무]</span>
-          <span>웹 프론트엔드</span>
+          <span>{profileJobName}</span>
         </div>
         <div>
           <span className={styles.footerName}>[담당]</span>
-          <span>웹 프론트엔드</span>
+          <span>{projectJobName}</span>
         </div>
       </div>
     </section>
