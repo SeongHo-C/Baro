@@ -21,7 +21,6 @@ const DetailInfo = ({ data }) => {
   const loginId = jwtDecode(localStorage.getItem('jwtToken')).sub;
   const [apply, setApply] = useState(false);
 
-  console.log(data);
   const getDate = (start, end) => {
     const st = new Date(start).getTime();
     const et = new Date(end).getTime();
@@ -35,12 +34,12 @@ const DetailInfo = ({ data }) => {
   const handleProjectApply = async (jobId) => {
     if (leaderId !== loginId) {
       try {
-        axios
+        await axios
           .post(`${url}/project/apply`, {
             projectId: id,
             jobId,
           })
-          .then((res) => console.log(res));
+          .then(() => setApply(true));
       } catch (error) {
         console.log(error);
       }
@@ -49,12 +48,24 @@ const DetailInfo = ({ data }) => {
     }
   };
 
+  const handleProjectReject = async () => {
+    try {
+      await axios
+        .post(`${url}/project/apply/cancel/${id}`)
+        .then(() => setApply(false));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const applyCheck = () => {
+    let check = false;
     applicants.map((applicant) => {
       if (applicant.memberId === loginId) {
-        setApply(true);
+        check = true;
       }
     });
+    setApply(check);
   };
 
   useEffect(() => {
@@ -72,8 +83,13 @@ const DetailInfo = ({ data }) => {
               <span
                 style={{ color: 'red' }}
               >{`${job.completeCount} / ${job.recruitCount}`}</span>
-              {data ? (
-                <button className={styles.recruitBtn}>지원 취소</button>
+              {apply ? (
+                <button
+                  className={`${styles.recruitBtn} ${styles.rejectBtn}`}
+                  onClick={handleProjectReject}
+                >
+                  지원 취소
+                </button>
               ) : (
                 <button
                   className={styles.recruitBtn}

@@ -1,3 +1,5 @@
+@value makerOrange from '../../common/color.module.css';
+
 .detailInfo {
   padding: 3em 1em;
 }
@@ -44,6 +46,12 @@
   border: 0.5px solid gray;
   padding: 0.2rem 1.2rem;
   border-radius: 0.2rem;
+}
+
+.rejectBtn {
+  border: 0.5px solid makerOrange;
+  background-color: makerOrange;
+  color: white;
 }
 
 .idea {
