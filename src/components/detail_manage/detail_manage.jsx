@@ -3,7 +3,8 @@ import React from 'react';
 import ProfileCard from '../profile_card/profile_card';
 import styles from './detail_manage.module.css';
 
-const DetailManage = ({ data }) => {
+const DetailManage = ({ data, getData }) => {
+  console.log(getData);
   const url = process.env.REACT_APP_URL;
   console.log(data);
   const { jobs, leaderId } = data.summary;
@@ -11,9 +12,15 @@ const DetailManage = ({ data }) => {
 
   const onAccept = async (id) => {
     try {
-      await axios
-        .post(`${url}/project/apply/${id}`)
-        .then((res) => console.log(res));
+      await axios.post(`${url}/project/apply/${id}`).then(() => getData());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onReject = async (id) => {
+    try {
+      await axios.delete(`${url}/project/apply/${id}`).then(() => getData());
     } catch (error) {
       console.log(error);
     }
@@ -63,7 +70,7 @@ const DetailManage = ({ data }) => {
                   </button>
                   <button
                     className={`${styles.btn} ${styles.rejectBtn}`}
-                    onClick={() => onAccept(applicant.memberId)}
+                    onClick={() => onReject(applicant.id)}
                   >
                     지원 거절
                   </button>

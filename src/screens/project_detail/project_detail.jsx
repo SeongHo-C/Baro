@@ -18,9 +18,17 @@ const ProjectDetail = (props) => {
     setActiveTab(tabId);
   };
 
+  const getData = async () => {
+    try {
+      axios.get(`${url}/project/${id}`).then((res) => setData(res.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const tabMenu = {
-    0: data && <DetailInfo data={data} />,
-    1: <DetailManage data={data} />,
+    0: data && <DetailInfo data={data} getData={getData} />,
+    1: <DetailManage data={data} getData={getData} />,
   };
 
   const tab = ['정보', '관리'];
@@ -33,14 +41,6 @@ const ProjectDetail = (props) => {
         return '진행중';
       case 'E':
         return '완료';
-    }
-  };
-
-  const getData = async () => {
-    try {
-      axios.get(`${url}/project/${id}`).then((res) => setData(res.data));
-    } catch (error) {
-      console.log(error);
     }
   };
 
