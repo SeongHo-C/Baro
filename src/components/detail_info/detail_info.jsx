@@ -16,7 +16,6 @@ const DetailInfo = ({ data }) => {
     team,
     applicants,
   } = data;
-
   const url = process.env.REACT_APP_URL;
   const loginId = jwtDecode(localStorage.getItem('jwtToken')).sub;
   const [apply, setApply] = useState(false);
@@ -83,7 +82,14 @@ const DetailInfo = ({ data }) => {
               <span
                 style={{ color: 'red' }}
               >{`${job.completeCount} / ${job.recruitCount}`}</span>
-              {apply ? (
+              {job.completeCount === job.recruitCount ? (
+                <button
+                  className={`${styles.recruitBtn} ${styles.rejectBtn}`}
+                  disabled
+                >
+                  모집 완료
+                </button>
+              ) : apply ? (
                 <button
                   className={`${styles.recruitBtn} ${styles.rejectBtn}`}
                   onClick={handleProjectReject}
@@ -147,7 +153,7 @@ const DetailInfo = ({ data }) => {
         {team.length > 1 &&
           team.map((member) => {
             if (member.memberId !== leaderId) {
-              return <ProfileCard data={member} />;
+              return <ProfileCard key={member.id} data={member} />;
             }
           })}
       </div>

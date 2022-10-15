@@ -1,4 +1,5 @@
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DetailInfo from '../../components/detail_info/detail_info';
@@ -11,13 +12,15 @@ const ProjectDetail = (props) => {
   const url = process.env.REACT_APP_URL;
   const id = useParams().id;
 
+  const loginId = jwtDecode(localStorage.getItem('jwtToken')).sub;
+
   const onTab = (tabId) => {
     setActiveTab(tabId);
   };
 
   const tabMenu = {
     0: data && <DetailInfo data={data} />,
-    1: <DetailManage />,
+    1: <DetailManage data={data} />,
   };
 
   const tab = ['정보', '관리'];
@@ -84,14 +87,27 @@ const ProjectDetail = (props) => {
                 return (
                   <li
                     key={i}
-                    onClick={() => onTab(i)}
+                    onClick={() => {
+                      if (data.summary.leaderId !== loginId) {
+                        alert('리더에게만 허락된 공간입니다.');
+                      } else {
+                        onTab(i);
+                      }
+                    }}
                     className={
                       activeTab === i
                         ? `${styles.active}`
                         : `${styles.noActive}`
                     }
                   >
-                    {v}
+                    {v === '관리' ? (
+                      <span>
+                        <i className='fa-solid fa-lock'></i>
+                        <span className={styles.tabManage}>{v}</span>
+                      </span>
+                    ) : (
+                      <span>{v}</span>
+                    )}
                   </li>
                 );
               })}

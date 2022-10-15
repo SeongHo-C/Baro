@@ -57,13 +57,25 @@
   margin-right: 2em;
 }
 
+.btns {
+  display: flex;
+  justify-content: space-between;
+}
+
 .btn {
   margin-top: 1rem;
   cursor: pointer;
-  padding: 0.5rem 0;
+  padding: 0.5rem 2.5rem;
   border-radius: 0.5rem;
   color: white;
   background-color: makerOrange;
   border: 0;
   outline: 0;
+  font-weight: 600;
 }
+
+/* .rejectBtn {
+  border: 1px solid makerOrange;
+  background-color: white;
+  color: makerOrange;
+} */
