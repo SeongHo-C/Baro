@@ -48,6 +48,10 @@
   border-radius: 0.2rem;
 }
 
+.recruitBtn:hover {
+  background-color: makerOrange;
+}
+
 .rejectBtn {
   border: 0.5px solid makerOrange;
   background-color: makerOrange;
@@ -99,4 +103,28 @@
 
 .memberSubTxt {
   margin-bottom: 0.5rem;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.modalText {
+  margin-top: 3em;
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal a {
+  margin-top: 3em;
+  margin-bottom: 3em;
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  cursor: pointer;
+  text-align: center;
 }

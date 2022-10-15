@@ -12,7 +12,8 @@ const ProjectDetail = (props) => {
   const url = process.env.REACT_APP_URL;
   const id = useParams().id;
 
-  const loginId = jwtDecode(localStorage.getItem('jwtToken')).sub;
+  const jwtToken = localStorage.getItem('jwtToken');
+  const loginId = jwtToken && jwtDecode(jwtToken).sub;
 
   const onTab = (tabId) => {
     setActiveTab(tabId);

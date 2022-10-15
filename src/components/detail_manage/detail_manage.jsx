@@ -4,9 +4,7 @@ import ProfileCard from '../profile_card/profile_card';
 import styles from './detail_manage.module.css';
 
 const DetailManage = ({ data, getData }) => {
-  console.log(getData);
   const url = process.env.REACT_APP_URL;
-  console.log(data);
   const { jobs, leaderId } = data.summary;
   const { team, applicants } = data;
 

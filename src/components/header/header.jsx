@@ -49,25 +49,6 @@ const Header = (props) => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const onLogoutClick = (e) => {
-  //     if (
-  //       dropDownRef.current !== null &&
-  //       !dropDownRef.current.contains(e.target)
-  //     ) {
-  //       setLogoutOpen(!logoutOpen);
-  //     }
-  //   };
-
-  //   if (logoutOpen) {
-  //     window.addEventListener('click', onLogoutClick);
-  //   }
-
-  //   return () => {
-  //     window.removeEventListener('click', onLogoutClick);
-  //   };
-  // }, [logoutOpen, setLogoutOpen]);
-
   return (
     <header className={styles.container}>
       <div className={styles.header}>

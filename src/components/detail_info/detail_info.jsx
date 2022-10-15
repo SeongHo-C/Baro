@@ -1,6 +1,7 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
+import Modal from '../modal/modal';
 import ProfileCard from '../profile_card/profile_card';
 import styles from './detail_info.module.css';
 
@@ -17,8 +18,17 @@ const DetailInfo = ({ data }) => {
     applicants,
   } = data;
   const url = process.env.REACT_APP_URL;
-  const loginId = jwtDecode(localStorage.getItem('jwtToken')).sub;
+  const jwtToken = localStorage.getItem('jwtToken');
+  const loginId = jwtToken && jwtDecode(jwtToken).sub;
   const [apply, setApply] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   const getDate = (start, end) => {
     const st = new Date(start).getTime();
@@ -30,17 +40,22 @@ const DetailInfo = ({ data }) => {
     return days;
   };
 
+  console.log(data);
   const handleProjectApply = async (jobId) => {
     if (leaderId !== loginId) {
-      try {
-        await axios
-          .post(`${url}/project/apply`, {
-            projectId: id,
-            jobId,
-          })
-          .then(() => setApply(true));
-      } catch (error) {
-        console.log(error);
+      if (loginId !== null) {
+        try {
+          await axios
+            .post(`${url}/project/apply`, {
+              projectId: id,
+              jobId,
+            })
+            .then(() => setApply(true));
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        openModal();
       }
     } else {
       alert('리더는 지원하실 수 없습니다.');
@@ -143,7 +158,7 @@ const DetailInfo = ({ data }) => {
       </div>
       <div className={styles.leaderInfo}>
         <span className={styles.name}>리더</span>
-        {<ProfileCard data={team[0]} />}
+        {team.length > 0 && <ProfileCard data={team[0]} />}
       </div>
       <div className={styles.memberInfo}>
         <span className={styles.memberTxt}>멤버</span>
@@ -157,6 +172,19 @@ const DetailInfo = ({ data }) => {
             }
           })}
       </div>
+      {modalOpen && (
+        <Modal open={modalOpen} close={closeModal}>
+          <div className={styles.modal}>
+            <div className={styles.modalText}>
+              <span>아이디어 공유부터 팀빌딩까지</span>
+              <span>이곳에서 바로!</span>
+            </div>
+            <a href='http://bestinwoo.hopto.org:8080/oauth2/authorization/google'>
+              <img src='../../images/google.png' alt='' />
+            </a>
+          </div>
+        </Modal>
+      )}
     </section>
   );
 };
