@@ -5,7 +5,7 @@ import styles from './detail_manage.module.css';
 
 const DetailManage = ({ data, getData }) => {
   const url = process.env.REACT_APP_URL;
-  const { jobs, leaderId } = data.summary;
+  const { jobs, leaderId, state } = data.summary;
   const { team, applicants } = data;
 
   const onAccept = async (id) => {
@@ -55,29 +55,27 @@ const DetailManage = ({ data, getData }) => {
       <div className={styles.memberInfo}>
         <span className={styles.memberTxt}>지원자</span>
         <ul className={styles.applicationCards}>
-          {applicants.length > 0 ? (
-            applicants.map((applicant) => (
-              <li className={styles.applicationCard} key={applicant.id}>
-                <ProfileCard data={applicant} />
-                <div className={styles.btns}>
-                  <button
-                    className={styles.btn}
-                    onClick={() => onAccept(applicant.id)}
-                  >
-                    지원 수락
-                  </button>
-                  <button
-                    className={`${styles.btn} ${styles.rejectBtn}`}
-                    onClick={() => onReject(applicant.id)}
-                  >
-                    지원 거절
-                  </button>
-                </div>
-              </li>
-            ))
-          ) : (
-            <span>이 프로젝트는 지원을 기다리는 중😁</span>
-          )}
+          {applicants.length > 0
+            ? applicants.map((applicant) => (
+                <li className={styles.applicationCard} key={applicant.id}>
+                  <ProfileCard data={applicant} />
+                  <div className={styles.btns}>
+                    <button
+                      className={styles.btn}
+                      onClick={() => onAccept(applicant.id)}
+                    >
+                      지원 수락
+                    </button>
+                    <button
+                      className={`${styles.btn} ${styles.rejectBtn}`}
+                      onClick={() => onReject(applicant.id)}
+                    >
+                      지원 거절
+                    </button>
+                  </div>
+                </li>
+              ))
+            : state !== 'R' && <span>이 프로젝트는 지원을 기다리는 중😁</span>}
         </ul>
       </div>
     </section>

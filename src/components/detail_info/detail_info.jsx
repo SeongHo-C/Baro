@@ -21,6 +21,7 @@ const DetailInfo = ({ data }) => {
   const jwtToken = localStorage.getItem('jwtToken');
   const loginId = jwtToken && jwtDecode(jwtToken).sub;
   const [apply, setApply] = useState(false);
+  const [member, setMember] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -42,23 +43,19 @@ const DetailInfo = ({ data }) => {
 
   console.log(data);
   const handleProjectApply = async (jobId) => {
-    if (leaderId !== loginId) {
-      if (loginId !== null) {
-        try {
-          await axios
-            .post(`${url}/project/apply`, {
-              projectId: id,
-              jobId,
-            })
-            .then(() => setApply(true));
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        openModal();
+    if (loginId !== null) {
+      try {
+        await axios
+          .post(`${url}/project/apply`, {
+            projectId: id,
+            jobId,
+          })
+          .then(() => setApply(true));
+      } catch (error) {
+        console.log(error);
       }
     } else {
-      alert('리더는 지원하실 수 없습니다.');
+      openModal();
     }
   };
 
@@ -82,8 +79,19 @@ const DetailInfo = ({ data }) => {
     setApply(check);
   };
 
+  const memberCheck = () => {
+    let check = false;
+    team.map((member) => {
+      if (member.memberId === loginId) {
+        check = true;
+      }
+    });
+    setMember(check);
+  };
+
   useEffect(() => {
     applyCheck();
+    memberCheck();
   }, []);
 
   return (
@@ -104,6 +112,8 @@ const DetailInfo = ({ data }) => {
                 >
                   모집 완료
                 </button>
+              ) : member ? (
+                ''
               ) : apply ? (
                 <button
                   className={`${styles.recruitBtn} ${styles.rejectBtn}`}

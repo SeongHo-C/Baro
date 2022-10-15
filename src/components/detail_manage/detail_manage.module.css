@@ -26,7 +26,9 @@
 }
 
 .recruitJob {
-  margin-right: 10em;
+  margin-right: 6rem;
+  display: inline-block;
+  width: 8rem;
 }
 
 .leaderInfo {
