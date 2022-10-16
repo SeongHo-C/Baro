@@ -141,13 +141,14 @@
 }
 
 .dropDownMenu {
+  cursor: pointer;
+  font-size: 0.9rem;
   background: #fff;
   border-radius: 8px;
   position: absolute;
   top: 30px;
   right: 30px;
   width: 150px;
-  text-align: center;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
@@ -155,13 +156,22 @@
   padding: 10px;
 }
 
+.dropDownMenu li {
+  padding: 0.5rem;
+}
+
 .dropDownMenu li:hover {
   cursor: pointer;
   background-color: makerOrange;
+  border-radius: 1rem;
 }
 
 .active {
   opacity: 1;
   visibility: visible;
   transform: translateY(2rem);
+}
+
+.dropDownTxt {
+  margin-left: 1rem;
 }

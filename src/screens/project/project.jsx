@@ -37,7 +37,7 @@ const Project = (props) => {
         style={{
           ...style,
           display: 'block',
-          right: '2.2rem',
+          right: '3.2rem',
         }}
         onClick={onClick}
       />
@@ -52,7 +52,7 @@ const Project = (props) => {
         style={{
           ...style,
           display: 'block',
-          left: '2.2rem',
+          left: '2rem',
           zIndex: 1,
         }}
         onClick={onClick}

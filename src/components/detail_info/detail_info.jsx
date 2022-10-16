@@ -6,7 +6,7 @@ import ProfileCard from '../profile_card/profile_card';
 import styles from './detail_info.module.css';
 
 const DetailInfo = ({ data }) => {
-  const { jobs, leaderId, id } = data.summary;
+  const { jobs, leaderId, id, state } = data.summary;
   const {
     description,
     loungeId,
@@ -172,9 +172,15 @@ const DetailInfo = ({ data }) => {
       </div>
       <div className={styles.memberInfo}>
         <span className={styles.memberTxt}>멤버</span>
-        <span className={styles.memberSubTxt}>
-          이 프로젝트는 지원을 기다리는 중😁
-        </span>
+        {state === 'R' ? (
+          <span className={styles.memberSubTxt}>
+            이 프로젝트는 지원을 기다리는 중😁
+          </span>
+        ) : (
+          <span className={styles.memberSubTxt}>
+            이 프로젝트는 더이상 지원할 수 ❌
+          </span>
+        )}
         {team.length > 1 &&
           team.map((member) => {
             if (member.memberId !== leaderId) {

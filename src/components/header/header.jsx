@@ -137,21 +137,25 @@ const Header = (props) => {
               >
                 <li
                   onClick={() => {
-                    navigate('/profile');
-                    setLogoutOpen(!logoutOpen);
-                  }}
-                >
-                  프로필
-                </li>
-                <li
-                  onClick={() => {
                     navigate('/mypage');
                     setLogoutOpen(!logoutOpen);
                   }}
                 >
-                  마이페이지
+                  <i className='fa-solid fa-house-user'></i>
+                  <span className={styles.dropDownTxt}>마이페이지</span>
                 </li>
-                <li onClick={onLogout}>로그아웃</li>
+                <li
+                  onClick={() => {
+                    navigate('/profile');
+                    setLogoutOpen(!logoutOpen);
+                  }}
+                >
+                  <i className='fa-solid fa-address-card'></i>
+                  <span className={styles.dropDownTxt}>프로필</span>
+                </li>
+                <li onClick={onLogout}>
+                  <span>로그아웃</span>
+                </li>
               </ul>
             </div>
           )}
