@@ -21,7 +21,19 @@ const ProjectDetail = (props) => {
 
   const getData = async () => {
     try {
-      axios.get(`${url}/project/${id}`).then((res) => setData(res.data));
+      await axios.get(`${url}/project/${id}`).then((res) => setData(res.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleLike = async () => {
+    try {
+      await axios
+        .post(`${url}/like`, {
+          projectId: id,
+        })
+        .then((res) => console.log(res));
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +77,9 @@ const ProjectDetail = (props) => {
               </div>
               <div className={styles.cnt}>
                 <div className={styles.heart}>
-                  <i className='fa-regular fa-heart'></i>
+                  <button className={styles.heartBtn} onClick={handleLike}>
+                    <i className='fa-regular fa-heart'></i>
+                  </button>
                   <span className={styles.selectCnt}>
                     {data.summary.likeCount}
                   </span>

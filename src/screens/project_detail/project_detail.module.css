@@ -60,6 +60,20 @@
   margin-right: 0.5rem;
 }
 
+.heartBtn {
+  font-size: 1.1rem;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.heartBtn:hover {
+  opacity: 0.8;
+  color: red;
+}
+
 .situation {
   margin-top: 1rem;
   font-size: 0.9rem;
