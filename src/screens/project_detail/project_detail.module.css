@@ -67,6 +67,17 @@
   padding: 0;
   background-color: transparent;
   cursor: pointer;
+  color: gray;
+}
+
+.heartDisBtn {
+  font-size: 1.1rem;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+  color: red;
 }
 
 .heartBtn:hover {
@@ -103,4 +114,28 @@
 .active {
   background-color: makerOrange;
   color: white;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.modalText {
+  margin-top: 3em;
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal a {
+  margin-top: 3em;
+  margin-bottom: 3em;
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  cursor: pointer;
+  text-align: center;
 }

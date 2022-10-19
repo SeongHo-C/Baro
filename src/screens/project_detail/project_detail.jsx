@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DetailInfo from '../../components/detail_info/detail_info';
 import DetailManage from '../../components/detail_manage/detail_manage';
+import Modal from '../../components/modal/modal';
 import styles from './project_detail.module.css';
 
 const ProjectDetail = (props) => {
@@ -11,9 +12,19 @@ const ProjectDetail = (props) => {
   const [data, setData] = useState();
   const url = process.env.REACT_APP_URL;
   const id = useParams().id;
+  const [like, setLike] = useState();
+  const [likeCount, setLikeCount] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const jwtToken = localStorage.getItem('jwtToken');
   const loginId = jwtToken && jwtDecode(jwtToken).sub;
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   const onTab = (tabId) => {
     setActiveTab(tabId);
@@ -21,7 +32,17 @@ const ProjectDetail = (props) => {
 
   const getData = async () => {
     try {
-      await axios.get(`${url}/project/${id}`).then((res) => setData(res.data));
+      await axios
+        .get(`${url}/project/${id}`, {
+          params: {
+            memberId: loginId || '',
+          },
+        })
+        .then((res) => {
+          setData(res.data);
+          setLike(res.data.like);
+          setLikeCount(res.data.summary.likeCount);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -33,14 +54,36 @@ const ProjectDetail = (props) => {
         .post(`${url}/like`, {
           projectId: id,
         })
-        .then((res) => console.log(res));
+        .then(() => {
+          setLike(!like);
+          setLikeCount(likeCount + 1);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDisLike = async () => {
+    try {
+      await axios
+        .delete(`${url}/unlike`, {
+          data: {
+            projectId: id,
+          },
+        })
+        .then(() => {
+          setLike(!like);
+          setLikeCount(likeCount - 1);
+        });
     } catch (error) {
       console.log(error);
     }
   };
 
   const tabMenu = {
-    0: data && <DetailInfo data={data} getData={getData} />,
+    0: data && (
+      <DetailInfo data={data} getData={getData} openModal={openModal} />
+    ),
     1: <DetailManage data={data} getData={getData} />,
   };
 
@@ -77,12 +120,30 @@ const ProjectDetail = (props) => {
               </div>
               <div className={styles.cnt}>
                 <div className={styles.heart}>
-                  <button className={styles.heartBtn} onClick={handleLike}>
-                    <i className='fa-regular fa-heart'></i>
-                  </button>
-                  <span className={styles.selectCnt}>
-                    {data.summary.likeCount}
-                  </span>
+                  {like ? (
+                    <button
+                      className={styles.heartBtn}
+                      style={{ color: 'red' }}
+                      onClick={handleDisLike}
+                    >
+                      <i className='fa-regular fa-heart'></i>
+                    </button>
+                  ) : (
+                    <button
+                      className={styles.heartBtn}
+                      onClick={() => {
+                        if (loginId) {
+                          handleLike();
+                        } else {
+                          openModal();
+                        }
+                      }}
+                    >
+                      <i className='fa-regular fa-heart'></i>
+                    </button>
+                  )}
+
+                  <span className={styles.selectCnt}>{likeCount}</span>
                 </div>
                 <div>
                   <i className='fa-regular fa-eye'></i>
@@ -130,6 +191,19 @@ const ProjectDetail = (props) => {
             <div className={styles.contents}>{tabMenu[activeTab]}</div>
           </main>
         </div>
+      )}
+      {modalOpen && (
+        <Modal open={modalOpen} close={closeModal}>
+          <div className={styles.modal}>
+            <div className={styles.modalText}>
+              <span>아이디어 공유부터 팀빌딩까지</span>
+              <span>이곳에서 바로!</span>
+            </div>
+            <a href='http://bestinwoo.hopto.org:8080/oauth2/authorization/google'>
+              <img src='../../images/google.png' alt='' />
+            </a>
+          </div>
+        </Modal>
       )}
     </section>
   );

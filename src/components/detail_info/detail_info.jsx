@@ -5,7 +5,7 @@ import Modal from '../modal/modal';
 import ProfileCard from '../profile_card/profile_card';
 import styles from './detail_info.module.css';
 
-const DetailInfo = ({ data }) => {
+const DetailInfo = ({ data, openModal }) => {
   const { jobs, leaderId, id, state } = data.summary;
   const {
     description,
@@ -22,14 +22,6 @@ const DetailInfo = ({ data }) => {
   const loginId = jwtToken && jwtDecode(jwtToken).sub;
   const [apply, setApply] = useState(false);
   const [member, setMember] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
 
   const getDate = (start, end) => {
     const st = new Date(start).getTime();
@@ -188,19 +180,6 @@ const DetailInfo = ({ data }) => {
             }
           })}
       </div>
-      {modalOpen && (
-        <Modal open={modalOpen} close={closeModal}>
-          <div className={styles.modal}>
-            <div className={styles.modalText}>
-              <span>아이디어 공유부터 팀빌딩까지</span>
-              <span>이곳에서 바로!</span>
-            </div>
-            <a href='http://bestinwoo.hopto.org:8080/oauth2/authorization/google'>
-              <img src='../../images/google.png' alt='' />
-            </a>
-          </div>
-        </Modal>
-      )}
     </section>
   );
 };
