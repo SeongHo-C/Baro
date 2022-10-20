@@ -16,14 +16,17 @@ import ProjectCreate from './screens/project_create/project_create';
 import ProjectDetail from './screens/project_detail/project_detail';
 import Profile from './screens/profile/profile';
 import Mypage from './screens/mypage/mypage';
+import { onRefresh } from './service/Login';
 
 const App = (props) => {
   const dispatch = useDispatch();
 
   const loginMaintain = () => {
     if (localStorage.getItem('jwtToken')) {
-      setAuthorizationToken(localStorage.getItem('jwtToken'));
-      dispatch(add(jwtDecode(localStorage.getItem('jwtToken'))));
+      const userInfo = jwtDecode(localStorage.getItem('jwtToken'));
+
+      onRefresh();
+      dispatch(add(userInfo));
     }
   };
 
