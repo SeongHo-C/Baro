@@ -40,6 +40,7 @@ const Header = (props) => {
   const onLogout = () => {
     localStorage.clear();
     dispatch(remove());
+    navigate('/');
   };
 
   useEffect(() => {

@@ -132,11 +132,8 @@ const ProjectDetail = (props) => {
                     <button
                       className={styles.heartBtn}
                       onClick={() => {
-                        if (loginId) {
-                          handleLike();
-                        } else {
-                          openModal();
-                        }
+                        if (loginId) handleLike();
+                        else openModal();
                       }}
                     >
                       <i className='fa-regular fa-heart'></i>
