@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ko } from 'date-fns/esm/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './rounge.module.css';
 import axios from 'axios';
@@ -9,10 +8,15 @@ import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import RoungeCard from '../../components/rounge_card/rounge_card';
+import { useSelector } from 'react-redux';
 
-const Rounge = (props) => {
+const Rounge = ({ openModal }) => {
   const editorRef = useRef();
+  const formRef = useRef();
+
   const url = process.env.REACT_APP_URL;
+
+  const isLoginId = useSelector((state) => state.user.user.sub);
   const data = {
     1: {
       id: 1,
@@ -22,10 +26,17 @@ const Rounge = (props) => {
     },
   };
 
-  const onRegister = (e) => {
-    e.preventDefault();
+  const onRegister = async () => {
+    const content = editorRef.current.getInstance().getHTML();
 
-    console.log(editorRef.current.getInstance().getHTML());
+    try {
+      await axios.post(`${url}/lounge`, {
+        content,
+        memberId: isLoginId,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -34,12 +45,16 @@ const Rounge = (props) => {
         <span className={styles.headerText}>라운지</span>
         <span className={styles.headerText2}>나의 아이디어가 세상으로 🙏</span>
       </header>
-      <form className={styles.main}>
+      <form className={styles.main} onSubmit={onRegister}>
         <div className={styles.input}>
           <span className={styles.name}>아이디어를 말해봐요~</span>
           <div className={styles.editor}>
             <Editor
-              initialValue='hello'
+              initialValue={
+                !isLoginId
+                  ? '<span style="color: red">로그인을 해주셔야 작성 버튼이 나타납니다.</span>'
+                  : ''
+              }
               previewStyle='vertical'
               height='250px'
               initialEditType='wysiwyg'
@@ -49,9 +64,9 @@ const Rounge = (props) => {
               ref={editorRef}
             />
             <div className={styles.registerBtnPos}>
-              <button className={styles.registerBtn} onClick={onRegister}>
-                등록
-              </button>
+              {isLoginId && (
+                <button className={styles.registerBtn}>등록</button>
+              )}
             </div>
           </div>
         </div>

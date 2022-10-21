@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import setAuthorizationToken from '../../service/setAuthorizationToken';
 import jwtDecode from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
-import { add } from '../../slices/loginSlice';
-import axios from 'axios';
 import { onLoginSuccess } from '../../service/Login';
 
 const Oauth = (props) => {

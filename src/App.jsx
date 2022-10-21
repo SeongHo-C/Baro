@@ -55,7 +55,7 @@ const App = (props) => {
             element={<ProjectDetail openModal={openModal} />}
           />
           <Route path='/project' element={<Project />} />
-          <Route path='/rounge' element={<Rounge />} />
+          <Route path='/rounge' element={<Rounge openModal={openModal} />} />
           <Route path='/ranking' element={<Ranking />} />
           <Route path='/join' element={<Join />} />
           <Route path='/oauth/saving' element={<Oauth />} />
