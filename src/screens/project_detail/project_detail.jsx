@@ -7,24 +7,16 @@ import DetailManage from '../../components/detail_manage/detail_manage';
 import Modal from '../../components/modal/modal';
 import styles from './project_detail.module.css';
 
-const ProjectDetail = (props) => {
+const ProjectDetail = ({ openModal }) => {
   const [activeTab, setActiveTab] = useState(0);
   const [data, setData] = useState();
   const url = process.env.REACT_APP_URL;
   const id = useParams().id;
   const [like, setLike] = useState();
   const [likeCount, setLikeCount] = useState(0);
-  const [modalOpen, setModalOpen] = useState(false);
 
   const jwtToken = localStorage.getItem('jwtToken');
   const loginId = jwtToken && jwtDecode(jwtToken).sub;
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
 
   const onTab = (tabId) => {
     setActiveTab(tabId);
@@ -188,19 +180,6 @@ const ProjectDetail = (props) => {
             <div className={styles.contents}>{tabMenu[activeTab]}</div>
           </main>
         </div>
-      )}
-      {modalOpen && (
-        <Modal open={modalOpen} close={closeModal}>
-          <div className={styles.modal}>
-            <div className={styles.modalText}>
-              <span>아이디어 공유부터 팀빌딩까지</span>
-              <span>이곳에서 바로!</span>
-            </div>
-            <a href='http://bestinwoo.hopto.org:8080/oauth2/authorization/google'>
-              <img src='../../images/google.png' alt='' />
-            </a>
-          </div>
-        </Modal>
       )}
     </section>
   );
