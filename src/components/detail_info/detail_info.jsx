@@ -131,7 +131,7 @@ const DetailInfo = ({ data, openModal }) => {
         {loungeId && (
           <div className={styles.ideas}>
             <span className={styles.idea}>
-              @ good idea of lee1234{`@ good idea of ${ideaProviderName}`}
+              {`@ good idea of ${ideaProviderName}`}
             </span>
           </div>
         )}

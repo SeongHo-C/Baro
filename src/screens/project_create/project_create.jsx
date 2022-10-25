@@ -11,7 +11,7 @@ import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import jwtDecode from 'jwt-decode';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import setAuthorizationToken from '../../service/setAuthorizationToken';
 import LeaderJob from '../../components/leader_job/leader_job';
 
@@ -34,8 +34,10 @@ const ProjectCreate = (props) => {
   const skillRef = useRef();
   const openTalkRef = useRef();
   const purposes = ['사이드 프로젝트', '경진대회'];
-  const navigate = useNavigate();
+  const location = useLocation();
+  const loungeId = location.state ? location.state.loungeId : '';
 
+  const navigate = useNavigate();
   const handlePurpose = (e) => {
     setSelectPurpose(e.target.value);
   };
@@ -141,7 +143,7 @@ const ProjectCreate = (props) => {
       skillIds: skills || [],
       description: description,
       openTalkLink: openTalkRef.current.value || '',
-      loungeId: '',
+      loungeId,
       startDate,
       endDate,
       leaderId,

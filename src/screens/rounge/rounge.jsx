@@ -73,7 +73,7 @@ const Rounge = (props) => {
   const onRegister = async (e) => {
     e.preventDefault();
 
-    const content = editorRef.current.getInstance().getMarkdown();
+    const content = editorRef.current.getInstance().getHTML();
 
     try {
       await axios.post(`${url}/lounge`, {
@@ -132,9 +132,9 @@ const Rounge = (props) => {
       <div className={styles.listsStyle}>
         <ul className={styles.lists}>
           {datas &&
-            Object.keys(datas).map((key) => {
-              return <RoungeCard key={key} data={datas[key]} />;
-            })}
+            Object.keys(datas).map((key) => (
+              <RoungeCard key={key} data={datas[key]} />
+            ))}
         </ul>
         {totalElements.length !== 0 && (
           <Paging
