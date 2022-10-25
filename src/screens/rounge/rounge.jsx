@@ -8,26 +8,72 @@ import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import RoungeCard from '../../components/rounge_card/rounge_card';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import jwtDecode from 'jwt-decode';
+import { getRounge } from '../../slices/rounge/roungeSlice';
+import Paging from '../../components/paging/paging';
+import { useNavigate } from 'react-router-dom';
 
-const Rounge = ({ openModal }) => {
+const Rounge = (props) => {
+  const [page, setPage] = useState(1);
   const editorRef = useRef();
-  const formRef = useRef();
+  const dispatch = useDispatch();
 
   const url = process.env.REACT_APP_URL;
 
-  const isLoginId = useSelector((state) => state.user.user.sub);
-  const data = {
-    1: {
-      id: 1,
-    },
-    2: {
-      id: 2,
-    },
+  const isLoginId = jwtDecode(localStorage.getItem('jwtToken')).sub;
+
+  const datas = useSelector((state) => state.rounge.data);
+  const totalElements = useSelector((state) => state.rounge.totalElements);
+
+  const settings = {
+    arrows: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    cssEase: 'linear',
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
   };
 
-  const onRegister = async () => {
-    const content = editorRef.current.getInstance().getHTML();
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{
+          ...style,
+          display: 'block',
+          right: '3.2rem',
+        }}
+        onClick={onClick}
+      />
+    );
+  }
+
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{
+          ...style,
+          display: 'block',
+          left: '2rem',
+          zIndex: 1,
+        }}
+        onClick={onClick}
+      />
+    );
+  }
+
+  const onRegister = async (e) => {
+    e.preventDefault();
+
+    const content = editorRef.current.getInstance().getMarkdown();
 
     try {
       await axios.post(`${url}/lounge`, {
@@ -38,6 +84,18 @@ const Rounge = ({ openModal }) => {
       console.log(error);
     }
   };
+
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
+
+  const handleRounge = () => {
+    dispatch(getRounge(page));
+  };
+
+  useEffect(() => {
+    handleRounge();
+  }, [page]);
 
   return (
     <section className={styles.container}>
@@ -73,10 +131,19 @@ const Rounge = ({ openModal }) => {
       </form>
       <div className={styles.listsStyle}>
         <ul className={styles.lists}>
-          {Object.keys(data).map((key) => (
-            <RoungeCard key={key} />
-          ))}
+          {datas &&
+            Object.keys(datas).map((key) => {
+              return <RoungeCard key={key} data={datas[key]} />;
+            })}
         </ul>
+        {totalElements.length !== 0 && (
+          <Paging
+            onPageChange={handlePageChange}
+            totalElements={totalElements}
+            page={page}
+            size={5}
+          />
+        )}
       </div>
     </section>
   );

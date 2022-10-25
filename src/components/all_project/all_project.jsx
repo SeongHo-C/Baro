@@ -121,6 +121,7 @@ const AllProject = (props) => {
             onPageChange={handlePageChange}
             totalElements={totalElements}
             page={page}
+            size={8}
           />
         )}
       </div>

@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const getProjects = createAsyncThunk('project', async (data) => {
   const url = process.env.REACT_APP_URL;
-  console.log(data);
   try {
     const response = await axios.get(`${url}/project?size=8`, {
       params: {
@@ -29,7 +28,6 @@ const listSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getProjects.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.project = action.payload.content;
       state.totalElements = action.payload.totalElements;
     });

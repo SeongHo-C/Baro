@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Pagination.css';
 import Pagination from 'react-js-pagination';
 
-const Paging = ({ onPageChange, totalElements, page }) => {
+const Paging = ({ onPageChange, totalElements, page, size }) => {
   const handlePageChange = (page) => {
     onPageChange(page);
   };
@@ -10,7 +10,7 @@ const Paging = ({ onPageChange, totalElements, page }) => {
   return (
     <Pagination
       activePage={page}
-      itemsCountPerPage={8}
+      itemsCountPerPage={size}
       totalItemsCount={totalElements}
       pageRangeDisplayed={5}
       prevPageText={'⊲'}
