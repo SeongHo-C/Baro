@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Modal from '../modal/modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { remove } from '../../slices/loginSlice';
+import jwtDecode from 'jwt-decode';
 
 const Header = (props) => {
   const [isToggle, setToggle] = useState(true);
@@ -16,7 +17,9 @@ const Header = (props) => {
   const dispatch = useDispatch();
   const dropDownRef = useRef(null);
 
-  const isUserId = useSelector((state) => state.user.isAuthenticated);
+  const isUser = useSelector((state) => state.user.isAuthenticated);
+  const token = localStorage.getItem('jwtToken');
+  const id = token ? jwtDecode(token).sub : '';
 
   const handleResize = debounce(() => {
     setResize(window.innerWidth);
@@ -87,7 +90,7 @@ const Header = (props) => {
               랭킹
             </button>
           </li>
-          {isUserId ? (
+          {isUser ? (
             <li>
               <button
                 className={styles.button}
@@ -99,7 +102,7 @@ const Header = (props) => {
           ) : (
             ''
           )}
-          {!isUserId ? (
+          {!isUser ? (
             <li>
               <button className={styles.button} onClick={openModal}>
                 SIGN IN
@@ -147,7 +150,7 @@ const Header = (props) => {
                 </li>
                 <li
                   onClick={() => {
-                    navigate('/profile');
+                    navigate(`/profile/${id}`);
                     setLogoutOpen(!logoutOpen);
                   }}
                 >

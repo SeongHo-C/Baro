@@ -18,8 +18,9 @@
 .img {
   width: 12rem;
   height: 12rem;
-  border-radius: 1rem;
+  border-radius: 50%;
   margin-bottom: 1rem;
+  border: 0.5px solid lightgray;
 }
 
 .main {
@@ -52,4 +53,5 @@
   background-color: #f6f6f9;
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
+  min-height: 100px;
 }

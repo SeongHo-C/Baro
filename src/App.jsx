@@ -60,7 +60,7 @@ const App = (props) => {
           <Route path='/join' element={<Join />} />
           <Route path='/oauth/saving' element={<Oauth />} />
           <Route path='/project/create' element={<ProjectCreate />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile/:id' element={<Profile />} />
           <Route path='/mypage' element={<Mypage />} />
         </Routes>
         <Footer />
