@@ -71,8 +71,6 @@ const Rounge = (props) => {
   }
 
   const onRegister = async (e) => {
-    e.preventDefault();
-
     const content = editorRef.current.getInstance().getHTML();
 
     try {
