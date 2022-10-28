@@ -8,6 +8,7 @@
 }
 
 .header {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,8 +19,25 @@
 .img {
   width: 12rem;
   height: 12rem;
-  border-radius: 1rem;
+  border-radius: 50%;
   margin-bottom: 1rem;
+  border: 0.5px solid lightgray;
+}
+
+.imgInput {
+  display: none;
+}
+
+.imgBtn {
+  position: absolute;
+  left: 68%;
+  border: 0.5px solid lightgray;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  color: makerOrange;
+  background-color: white;
+  cursor: pointer;
+  outline: 0;
 }
 
 .main {
@@ -33,8 +51,14 @@
 }
 
 .card {
+  width: 100%;
   margin-top: 1.5rem;
   padding: 0 0.5rem;
+}
+
+.cardStyle {
+  display: flex;
+  align-items: center;
 }
 
 .card span {
@@ -45,12 +69,27 @@
   width: 10rem;
 }
 
-.viewerStyle {
+.introduce {
   width: 100%;
   margin-top: 1.5rem;
   border: 0;
   background-color: #f6f6f9;
   border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.card input {
+  width: 100%;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  padding: 0.5rem 0.5rem;
+}
+
+.card textarea {
+  width: 100%;
+  min-height: 200px;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
   padding: 0.5rem 1rem;
 }
 
@@ -72,4 +111,9 @@
 
 .button:hover {
   opacity: 0.8;
+}
+
+.verification {
+  font-size: 0.8rem;
+  color: red;
 }

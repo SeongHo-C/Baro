@@ -17,8 +17,8 @@ const Join = (props) => {
 
   const selectRef = useRef();
   const nicknameRef = useRef();
-  const jobIdRef = useRef();
   const jobLevelRef = useRef();
+  const jobIdRef = useRef();
   const universityRef = useRef();
 
   const getJob = useCallback(async () => {

@@ -127,7 +127,6 @@ const Header = (props) => {
                 className={`${styles.button} ${styles.profile}`}
                 onClick={() => {
                   setLogoutOpen(!logoutOpen);
-                  console.log(logoutOpen);
                 }}
               >
                 <i className='fa-regular fa-user'></i>

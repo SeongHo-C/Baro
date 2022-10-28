@@ -1,4 +1,6 @@
+import jwtDecode from 'jwt-decode';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import MypageInfo from '../../components/mypage_info/mypage_info';
 import MypageProject from '../../components/mypage_project/mypage_project';
 import RankingSolo from '../../components/ranking_solo/ranking_solo';
@@ -18,11 +20,13 @@ const Mypage = (props) => {
 
   const tab = ['회원 정보 수정', '프로젝트 현황'];
 
+  const nickname = useSelector((state) => state.user.user.nickname);
+
   return (
     <section className={styles.ranking}>
       <div className={styles.container}>
         <header className={styles.header}>
-          <span className={styles.headerText}>lee1234's</span>
+          <span className={styles.headerText}>{`${nickname}'s`}</span>
           <span className={styles.headerText2}>마이페이지</span>
         </header>
         <div className={styles.container2}>
