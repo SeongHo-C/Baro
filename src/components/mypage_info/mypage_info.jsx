@@ -13,10 +13,9 @@ import { useDispatch } from 'react-redux';
 import { add } from '../../slices/loginSlice';
 import { onRefresh } from '../../service/Login';
 
-const MypageInfo = (props) => {
+const MypageInfo = ({ userData, handleChange }) => {
   const [imgSrc, setImgSrc] = useState('');
   const [file, setFile] = useState('');
-  const [userData, setUserData] = useState('');
   const [email, setEmail] = useState('');
   const [jobs, setJobs] = useState();
   const [jobId, setJobId] = useState();
@@ -31,16 +30,6 @@ const MypageInfo = (props) => {
   const url = process.env.REACT_APP_URL;
   const id = jwtDecode(localStorage.getItem('jwtToken')).sub;
   const dispatch = useDispatch();
-
-  const getUserInfo = async (id) => {
-    try {
-      await axios
-        .get(`${url}/member/${id}`)
-        .then((res) => setUserData(res.data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const getImage = async (image) => {
     try {
@@ -93,16 +82,6 @@ const MypageInfo = (props) => {
     imgRef.current.click();
   };
 
-  const onChange = (event) => {
-    if (event.currentTarget == null) {
-      return;
-    }
-
-    const updated = { ...userData };
-    updated[event.currentTarget.name] = event.currentTarget.value;
-    setUserData(updated);
-  };
-
   const getJob = useCallback(async () => {
     try {
       await axios.get(`${url}/job`).then((response) => {
@@ -119,6 +98,16 @@ const MypageInfo = (props) => {
 
   const handleJobLevel = (jobLevel) => {
     setJobLevel(jobLevel);
+  };
+
+  const onChange = (event) => {
+    if (event.currentTarget == null) {
+      return;
+    }
+
+    const updated = { ...userData };
+    updated[event.currentTarget.name] = event.currentTarget.value;
+    handleChange(updated);
   };
 
   const userInfoPatch = async (userInfo) => {
@@ -148,7 +137,6 @@ const MypageInfo = (props) => {
   };
 
   useEffect(() => {
-    getUserInfo(id);
     getJob();
   }, []);
 
