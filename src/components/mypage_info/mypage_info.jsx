@@ -111,8 +111,6 @@ const MypageInfo = ({ userData, handleChange }) => {
   };
 
   const userInfoPatch = async (userInfo) => {
-    const user = jwtDecode(localStorage.getItem('jwtToken'));
-
     try {
       await axios.patch(`/member/${id}`, userInfo).then(() => {
         alert('수정이 완료되었습니다.');
@@ -121,7 +119,7 @@ const MypageInfo = ({ userData, handleChange }) => {
       console.log(error);
     }
   };
-  console.log(userData);
+
   const onSubmit = (e) => {
     e.preventDefault();
 
