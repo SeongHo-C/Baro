@@ -1,3 +1,10 @@
+@value makerOrange from '../../common/color.module.css';
+
 tr {
   text-align: center;
+}
+
+.card:hover {
+  background-color: makerOrange;
+  color: white;
 }

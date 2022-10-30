@@ -6,7 +6,7 @@ const RankingCard = ({ data, rank }) => {
   const { university, point, personnel } = data;
 
   return (
-    <tr>
+    <tr className={styles.card}>
       <td>{rank}</td>
       <td>{university}</td>
       <td>{point}</td>
