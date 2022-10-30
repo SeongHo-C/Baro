@@ -52,6 +52,12 @@ const MypageInfo = ({ userData, handleChange }) => {
     }
   };
 
+  const updatedImg = (image) => {
+    const updated = { ...userData };
+    updated['imageUrl'] = image;
+    handleChange(updated);
+  };
+
   const onImgChange = (fileBlob) => {
     onImgRegister(fileBlob);
     const reader = new FileReader();
@@ -59,6 +65,7 @@ const MypageInfo = ({ userData, handleChange }) => {
     return new Promise((resolve) => {
       reader.onload = () => {
         setImgSrc(reader.result);
+        updatedImg(reader.result);
         resolve();
       };
     });
