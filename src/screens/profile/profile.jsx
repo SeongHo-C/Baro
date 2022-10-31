@@ -77,7 +77,7 @@ const Profile = (props) => {
                 <span className={styles.title}>개인 랭킹</span>
                 <span
                   className={styles.subTitle}
-                >{`1등(${userData.point}포인트)`}</span>
+                >{`${userData.point} 포인트`}</span>
               </li>
               <li className={styles.card}>
                 <span className={styles.title}>학교</span>

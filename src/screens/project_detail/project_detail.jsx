@@ -167,7 +167,11 @@ const ProjectDetail = ({ openModal }) => {
                   >
                     {v === '관리' ? (
                       <span>
-                        <i className='fa-solid fa-lock'></i>
+                        {data.summary.leaderId !== loginId ? (
+                          <i className='fa-solid fa-lock'></i>
+                        ) : (
+                          ''
+                        )}
                         <span className={styles.tabManage}>{v}</span>
                       </span>
                     ) : (
