@@ -10,6 +10,8 @@ const AllProject = (props) => {
   const [jobs, setJobs] = useState();
   const [page, setPage] = useState(1);
   const [jobId, setJobId] = useState('');
+  const [recruiting, setRecruiting] = useState(false);
+
   const url = process.env.REACT_APP_URL;
   const schoolRef = useRef();
   const purposeRef = useRef();
@@ -18,7 +20,6 @@ const AllProject = (props) => {
 
   const projects = useSelector((state) => state.list.project);
   const totalElements = useSelector((state) => state.list.totalElements);
-
   const dispatch = useDispatch();
 
   const getJob = useCallback(async () => {
@@ -47,8 +48,7 @@ const AllProject = (props) => {
       schoolRef.current.value === '학교' ? '' : schoolRef.current.value;
     const purpose =
       purposeRef.current.value === '목적' ? '' : purposeRef.current.value;
-    const state = stateRef.current.value === '모집중' ? 'R' : '';
-
+    const state = recruiting ? 'R' : '';
     dispatch(getProjects([school, purpose, jobId, state, page]));
   };
 
@@ -58,7 +58,7 @@ const AllProject = (props) => {
 
   useEffect(() => {
     handleProjectList();
-  }, [page, jobId]);
+  }, [page, jobId, recruiting]);
 
   return (
     <section>
@@ -102,8 +102,7 @@ const AllProject = (props) => {
         <input
           ref={stateRef}
           type='checkbox'
-          value='모집중'
-          onChange={handleProjectList}
+          onChange={() => setRecruiting(!recruiting)}
         />{' '}
         모집중
       </div>

@@ -63,7 +63,7 @@ const ProjectCard = ({ project }) => {
 
   useEffect(() => {
     getImage(imagePath);
-  }, []);
+  });
 
   return (
     <li className={styles.container} onClick={onClick}>
