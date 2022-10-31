@@ -25,9 +25,12 @@ const DetailManage = ({ data, getData }) => {
   };
 
   return (
-    <section className={styles.detailInfo}>
+    <section className={styles.detailManage}>
       <div className={styles.container}>
-        <span className={styles.name}>모집 현황</span>
+        <div className={styles.completion}>
+          <span className={styles.name}>모집 현황</span>
+          <button className={styles.completionBtn}>프로젝트 완성</button>
+        </div>
         <div className={styles.recruitInfo}>
           {jobs.map((job) => (
             <div key={job.jobId} className={styles.recruitCard}>
