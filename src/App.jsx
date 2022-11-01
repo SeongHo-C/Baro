@@ -18,6 +18,7 @@ import Mypage from './screens/mypage/mypage';
 import { onRefresh } from './service/Login';
 import styles from './app.module.css';
 import Modal from './components/modal/modal';
+import ProjectCompletionCreate from './screens/project_completion_create/project_completion_create';
 
 const App = (props) => {
   const dispatch = useDispatch();
@@ -62,6 +63,10 @@ const App = (props) => {
           <Route path='/project/create' element={<ProjectCreate />} />
           <Route path='/profile/:id' element={<Profile />} />
           <Route path='/mypage' element={<Mypage />} />
+          <Route
+            path='/profile/completion/:id'
+            element={<ProjectCompletionCreate />}
+          />
         </Routes>
         <Footer />
       </BrowserRouter>

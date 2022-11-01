@@ -1,11 +1,12 @@
 import axios from 'axios';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProfileCard from '../profile_card/profile_card';
 import styles from './detail_manage.module.css';
 
 const DetailManage = ({ data, getData }) => {
   const url = process.env.REACT_APP_URL;
-  const { jobs, leaderId, state } = data.summary;
+  const { jobs, leaderId, state, id } = data.summary;
   const { team, applicants } = data;
 
   const onAccept = async (id) => {
@@ -24,12 +25,22 @@ const DetailManage = ({ data, getData }) => {
     }
   };
 
+  const navigate = useNavigate();
+  const moveCompletionCreate = () => {
+    navigate(`/profile/completion/${id}`);
+  };
+
   return (
     <section className={styles.detailManage}>
       <div className={styles.container}>
         <div className={styles.completion}>
           <span className={styles.name}>모집 현황</span>
-          <button className={styles.completionBtn}>프로젝트 완성</button>
+          <button
+            className={styles.completionBtn}
+            onClick={moveCompletionCreate}
+          >
+            프로젝트 완성
+          </button>
         </div>
         <div className={styles.recruitInfo}>
           {jobs.map((job) => (
