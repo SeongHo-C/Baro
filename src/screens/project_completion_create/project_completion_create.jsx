@@ -6,16 +6,13 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
-import jwtDecode from 'jwt-decode';
-import { useLocation, useNavigate } from 'react-router-dom';
-import setAuthorizationToken from '../../service/setAuthorizationToken';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 
 const ProjectCreate = (props) => {
   const [imgSrc, setImgSrc] = useState();
-  const [file, setFile] = useState('');
-  const imgRef = useRef();
-  const [leaderJobId, setLeaderJobId] = useState(7);
+  const [file, setFile] = useState([]);
+
   const content = `<h2>1. 프로젝트 기능 명세</h2>
 <p>ex) 홈 - 최신 프로젝트를 볼 수 있는 페이지이다.</p>
 <h2>2. 프로젝트 완성 후기</h2>
@@ -24,9 +21,10 @@ const ProjectCreate = (props) => {
   const url = process.env.REACT_APP_URL;
   const summaryRef = useRef();
   const editorRef = useRef();
-  const skillRef = useRef();
-  const openTalkRef = useRef();
-  const location = useLocation();
+  const resultRef = useRef();
+  const githubRef = useRef();
+  const imgRef = useRef();
+  const id = useParams().id;
 
   const navigate = useNavigate();
 
@@ -74,13 +72,13 @@ const ProjectCreate = (props) => {
     );
   }
 
-  const onImgRegister = async (file) => {
+  const onImgRegister = async (file, fileList) => {
     const formdata = new FormData();
     formdata.append('file', file);
     try {
-      await axios
-        .post(`${url}/image?type=project`, formdata)
-        .then((res) => res.data);
+      await axios.post(`${url}/image?type=project`, formdata).then((res) => {
+        fileList.push(res.data);
+      });
     } catch (error) {
       console.log(error);
     }
@@ -101,13 +99,13 @@ const ProjectCreate = (props) => {
   const handleAddImages = (event) => {
     const imageLists = event.target.files;
     const imageUrlLists = [];
-    const files = [];
+    const fileList = [];
 
     for (let i = 0; i < imageLists.length; i++) {
       const currentImageUrl = URL.createObjectURL(imageLists[i]);
       imageUrlLists.push(currentImageUrl);
 
-      files.push(onImgRegister(imageLists[i]));
+      onImgRegister(imageLists[i], fileList);
     }
 
     if (imageUrlLists.length > 10) {
@@ -115,7 +113,7 @@ const ProjectCreate = (props) => {
     }
 
     setImgSrc(imageUrlLists);
-    setFile(files);
+    setFile(fileList);
   };
 
   const onImgUploadBtn = (e) => {
@@ -125,6 +123,9 @@ const ProjectCreate = (props) => {
 
   const onProjectCompletion = async (data) => {
     try {
+      await axios
+        .post(`${url}/project/completion`, data)
+        .then(() => navigate(`/detail/${id}`));
     } catch (error) {
       console.log(error);
     }
@@ -132,6 +133,20 @@ const ProjectCreate = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    const description = editorRef.current.getInstance().getHTML();
+    console.log(description);
+    const data = {
+      summary: summaryRef.current.value || '',
+      description,
+      projectResult: resultRef.current.value || '',
+      githubLink: githubRef.current.value || '',
+      imageList: file,
+      projectId: id,
+    };
+
+    console.log(data);
+    onProjectCompletion(data);
   };
 
   return (
@@ -174,6 +189,7 @@ const ProjectCreate = (props) => {
             <span className={styles.name}>성과</span>
             <div>
               <input
+                ref={resultRef}
                 type='text'
                 className={styles.result}
                 placeholder='ex) SW 개발 보안 경진대회 대상 수상'
@@ -184,6 +200,7 @@ const ProjectCreate = (props) => {
             <span className={styles.name}>깃허브 주소</span>
             <div>
               <input
+                ref={githubRef}
                 type='text'
                 className={styles.github}
                 placeholder='ex) https://github.com/SeongHo-C'

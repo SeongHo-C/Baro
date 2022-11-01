@@ -35,12 +35,14 @@ const DetailManage = ({ data, getData }) => {
       <div className={styles.container}>
         <div className={styles.completion}>
           <span className={styles.name}>모집 현황</span>
-          <button
-            className={styles.completionBtn}
-            onClick={moveCompletionCreate}
-          >
-            프로젝트 완성
-          </button>
+          {state === 'C' && (
+            <button
+              className={styles.completionBtn}
+              onClick={moveCompletionCreate}
+            >
+              프로젝트 완성
+            </button>
+          )}
         </div>
         <div className={styles.recruitInfo}>
           {jobs.map((job) => (
