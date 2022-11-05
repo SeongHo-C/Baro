@@ -1,16 +1,60 @@
-import { Viewer } from '@toast-ui/react-editor';
 import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Slider from 'react-slick';
+import ImageCard from '../image_card/image_card';
 import styles from './detail_result.module.css';
 
 const DetailResult = (props) => {
   const [data, setData] = useState();
+  const [imgSrc, setImgSrc] = useState([]);
 
   const url = process.env.REACT_APP_URL;
   const id = useParams().id;
+
+  const settings = {
+    arrows: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    cssEase: 'linear',
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+  };
+
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{
+          ...style,
+          display: 'block',
+        }}
+        onClick={onClick}
+      />
+    );
+  }
+
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{
+          ...style,
+          display: 'block',
+          zIndex: 1,
+        }}
+        onClick={onClick}
+      />
+    );
+  }
 
   const getProjectResult = async () => {
     try {
@@ -25,6 +69,7 @@ const DetailResult = (props) => {
   useEffect(() => {
     getProjectResult();
   }, []);
+
   console.log(data);
   return (
     <section className={styles.detailResult}>
@@ -52,7 +97,11 @@ const DetailResult = (props) => {
           </div>
           <div className={styles.footer}>
             <span className={styles.name}>프로젝트 이미지</span>
-            <span></span>
+            <Slider className={styles.imageList} {...settings}>
+              {data.imageList.map((image) => (
+                <ImageCard key={image} image={image} />
+              ))}
+            </Slider>
           </div>
         </>
       )}
