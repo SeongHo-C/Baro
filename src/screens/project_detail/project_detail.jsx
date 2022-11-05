@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DetailInfo from '../../components/detail_info/detail_info';
 import DetailManage from '../../components/detail_manage/detail_manage';
+import DetailResult from '../../components/detail_result/detail_result';
 import Modal from '../../components/modal/modal';
 import styles from './project_detail.module.css';
 
@@ -76,10 +77,11 @@ const ProjectDetail = ({ openModal }) => {
     0: data && (
       <DetailInfo data={data} getData={getData} openModal={openModal} />
     ),
-    1: <DetailManage data={data} getData={getData} />,
+    1: <DetailResult />,
+    2: <DetailManage data={data} getData={getData} />,
   };
 
-  const tab = ['정보', '관리'];
+  const tab = ['정보', '결과물', '관리'];
 
   const getState = (state) => {
     switch (state) {
@@ -153,11 +155,17 @@ const ProjectDetail = ({ openModal }) => {
                   <li
                     key={i}
                     onClick={() => {
-                      if (data.summary.leaderId !== loginId) {
+                      if (data.summary.leaderId !== loginId && i === 2) {
                         alert('리더에게만 허락된 공간입니다.');
-                      } else {
-                        onTab(i);
+                        return;
                       }
+
+                      if (data.summary.state !== 'E' && i === 1) {
+                        alert('아직 완료된 프로젝트가 아닙니다.');
+                        return;
+                      }
+
+                      onTab(i);
                     }}
                     className={
                       activeTab === i
@@ -165,13 +173,10 @@ const ProjectDetail = ({ openModal }) => {
                         : `${styles.noActive}`
                     }
                   >
-                    {v === '관리' ? (
+                    {(v === '관리' && data.summary.leaderId !== loginId) ||
+                    (v === '결과물' && data.summary.state !== 'E') ? (
                       <span>
-                        {data.summary.leaderId !== loginId ? (
-                          <i className='fa-solid fa-lock'></i>
-                        ) : (
-                          ''
-                        )}
+                        <i className='fa-solid fa-lock'></i>
                         <span className={styles.tabManage}>{v}</span>
                       </span>
                     ) : (

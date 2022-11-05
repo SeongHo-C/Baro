@@ -1,0 +1,24 @@
+.detailResult {
+  padding: 3em 1em;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3em;
+}
+
+.container::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: lightgray;
+  transform: translateY(1.5rem);
+}
+
+.name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
