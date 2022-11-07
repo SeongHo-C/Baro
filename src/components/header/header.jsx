@@ -91,14 +91,24 @@ const Header = (props) => {
             </button>
           </li>
           {isUser ? (
-            <li>
-              <button
-                className={styles.button}
-                onClick={() => navigate('/project/create')}
-              >
-                프로젝트 생성
-              </button>
-            </li>
+            <>
+              <li>
+                <button
+                  className={styles.button}
+                  onClick={() => navigate('/project/completion')}
+                >
+                  완성작
+                </button>
+              </li>
+              <li>
+                <button
+                  className={styles.button}
+                  onClick={() => navigate('/project/create')}
+                >
+                  프로젝트 생성
+                </button>
+              </li>
+            </>
           ) : (
             ''
           )}

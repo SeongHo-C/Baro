@@ -19,6 +19,7 @@ import { onRefresh } from './service/Login';
 import styles from './app.module.css';
 import Modal from './components/modal/modal';
 import ProjectCompletionCreate from './screens/project_completion_create/project_completion_create';
+import ProjectCompletion from './screens/project_completion/project_completion';
 
 const App = (props) => {
   const dispatch = useDispatch();
@@ -67,6 +68,7 @@ const App = (props) => {
             path='/profile/completion/:id'
             element={<ProjectCompletionCreate />}
           />
+          <Route path='/project/completion' element={<ProjectCompletion />} />
         </Routes>
         <Footer />
       </BrowserRouter>

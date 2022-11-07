@@ -1,0 +1,43 @@
+@value makerOrange from '../../common/color.module.css';
+
+.completion {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 90%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  margin: 3em 0;
+}
+
+.headerTxt {
+  font-size: 2rem;
+  color: makerOrange;
+  font-weight: 700;
+}
+
+.headerSubTxt {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.projectCard {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5em;
+}
+
+.project {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  padding: 0;
+}

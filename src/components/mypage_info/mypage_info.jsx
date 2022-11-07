@@ -4,14 +4,10 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
-import { Editor, Viewer } from '@toast-ui/react-editor';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import UserJob from '../user_job/user_job';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { add } from '../../slices/loginSlice';
-import { onRefresh } from '../../service/Login';
 
 const MypageInfo = ({ userData, handleChange }) => {
   const [imgSrc, setImgSrc] = useState('');
