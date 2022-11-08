@@ -3,11 +3,12 @@ import styles from './profile.module.css';
 import { Viewer } from '@toast-ui/react-editor';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { imageLookup } from '../../service/image_api';
 
 const Profile = (props) => {
   const [userData, setUserData] = useState('');
-  const [imgSrc, setImgSrc] = useState('');
-  console.log(userData);
+  const [image, setImage] = useState();
+
   const id = useParams().id;
   const url = process.env.REACT_APP_URL;
 
@@ -15,27 +16,12 @@ const Profile = (props) => {
     try {
       await axios
         .get(`${url}/member/${id}`)
-        .then((res) => setUserData(res.data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getImage = async (image) => {
-    try {
-      axios
-        .get(`${url}/image/member/${image}`, {
-          responseType: 'blob',
-        })
-        .then((response) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(response.data);
-          return new Promise((resolve) => {
-            reader.onload = () => {
-              setImgSrc(reader.result);
-              resolve();
-            };
-          });
+        .then((res) => res.data)
+        .then((data) => {
+          setUserData(data);
+          imageLookup({ type: 'member', image: data.imageUrl }).then((image) =>
+            setImage(image)
+          );
         });
     } catch (error) {
       console.log(error);
@@ -46,10 +32,6 @@ const Profile = (props) => {
     getUserInfo(id);
   }, []);
 
-  useEffect(() => {
-    if (userData.imageUrl) getImage(userData.imageUrl);
-  }, [userData]);
-
   return (
     <section className={styles.profile}>
       {userData && (
@@ -57,7 +39,7 @@ const Profile = (props) => {
           <header className={styles.header}>
             <img
               className={styles.img}
-              src={userData.imageUrl ? imgSrc : '../../images/user.png'}
+              src={image ? image : '../../images/user.png'}
               alt=''
             />
             <span>{userData.nickname}</span>

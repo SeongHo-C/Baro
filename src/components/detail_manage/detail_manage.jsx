@@ -29,7 +29,7 @@ const DetailManage = ({ data, getData }) => {
   const moveCompletionCreate = () => {
     navigate(`/profile/completion/${id}`);
   };
-
+  console.log(data);
   return (
     <section className={styles.detailManage}>
       <div className={styles.container}>
