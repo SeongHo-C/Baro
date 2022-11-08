@@ -18,8 +18,8 @@ const AllProject = (props) => {
   const jobIdRef = useRef();
   const stateRef = useRef();
 
-  const projects = useSelector((state) => state.list.project);
-  const totalElements = useSelector((state) => state.list.totalElements);
+  const datas = useSelector((state) => state.list);
+
   const dispatch = useDispatch();
 
   const getJob = useCallback(async () => {
@@ -31,7 +31,7 @@ const AllProject = (props) => {
       console.log(error);
     }
   });
-
+  console.log(datas.project);
   const handlePageChange = (page) => {
     setPage(page);
   };
@@ -108,17 +108,17 @@ const AllProject = (props) => {
       </div>
       <div className={styles.projectCard}>
         <ul className={styles.project}>
-          {projects &&
-            Object.keys(projects).map((key) => (
-              <ProjectCard key={key} project={projects[key]} />
+          {datas.project &&
+            Object.keys(datas.project).map((key) => (
+              <ProjectCard key={key} project={datas.project[key]} />
             ))}
         </ul>
       </div>
       <div>
-        {totalElements.length !== 0 && (
+        {datas.totalElements.length !== 0 && (
           <Paging
             onPageChange={handlePageChange}
-            totalElements={totalElements}
+            totalElements={datas.totalElements}
             page={page}
             size={8}
           />

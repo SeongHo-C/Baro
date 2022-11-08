@@ -33,6 +33,7 @@ const ProjectCard = ({ project }) => {
   };
 
   const navigate = useNavigate();
+
   const onClick = () => {
     navigate(`/detail/${id}`);
   };
@@ -41,7 +42,7 @@ const ProjectCard = ({ project }) => {
     imageLookup({ type: 'project', image: imagePath }).then((image) =>
       setImage(image)
     );
-  }, []);
+  }, [project]);
 
   return (
     <li className={styles.container} onClick={onClick}>
