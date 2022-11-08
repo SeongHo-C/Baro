@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import LikeButton from '../like_button/like_button';
 import styles from './project_card.module.css';
 import _ from 'lodash';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { imageLookup } from '../../service/image_api';
 
 const ProjectCard = ({ project }) => {
   const {
@@ -14,15 +13,13 @@ const ProjectCard = ({ project }) => {
     title,
     state,
     jobs,
-    tech,
     viewCount,
     likeCount,
   } = project;
 
-  const url = process.env.REACT_APP_URL;
   const totalRecruit = _.sumBy(jobs, (job) => job.recruitCount);
   const completeRecruit = _.sumBy(jobs, (job) => job.completeCount);
-  const [imgSrc, setImgSrc] = useState('');
+  const [image, setImage] = useState();
 
   const getState = (state) => {
     switch (state) {
@@ -35,39 +32,20 @@ const ProjectCard = ({ project }) => {
     }
   };
 
-  const getImage = async (imagePath) => {
-    try {
-      axios
-        .get(`${url}/image/project/${imagePath}`, {
-          responseType: 'blob',
-        })
-        .then((response) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(response.data);
-          return new Promise((resolve) => {
-            reader.onload = () => {
-              setImgSrc(reader.result);
-              resolve();
-            };
-          });
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const navigate = useNavigate();
   const onClick = () => {
     navigate(`/detail/${id}`);
   };
 
   useEffect(() => {
-    getImage(imagePath);
-  });
+    imageLookup({ type: 'project', image: imagePath }).then((image) =>
+      setImage(image)
+    );
+  }, []);
 
   return (
     <li className={styles.container} onClick={onClick}>
-      {imgSrc ? <img className={styles.img} src={imgSrc} alt='로딩중' /> : ''}
+      {image ? <img className={styles.img} src={image} alt='로딩중' /> : ''}
       <div className={styles.info}>
         <span className={styles.kind}>{purpose}</span>
         <span className={styles.projectName}>{title}</span>
@@ -89,7 +67,6 @@ const ProjectCard = ({ project }) => {
           className={styles.recruitText}
         >{`${completeRecruit} / ${totalRecruit}`}</span>
       </div>
-      {/* <div className={styles.like}>{<LikeButton />}</div> */}
     </li>
   );
 };

@@ -40,7 +40,7 @@ const Profile = (props) => {
             <img
               className={styles.img}
               src={image ? image : '../../images/user.png'}
-              alt=''
+              alt='프로필 이미지'
             />
             <span>{userData.nickname}</span>
           </header>
