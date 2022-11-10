@@ -110,7 +110,10 @@ const AllProject = (props) => {
         <ul className={styles.project}>
           {datas.project &&
             Object.keys(datas.project).map((key) => (
-              <ProjectCard key={key} project={datas.project[key]} />
+              <ProjectCard
+                key={datas.project[key].id}
+                project={datas.project[key]}
+              />
             ))}
         </ul>
       </div>

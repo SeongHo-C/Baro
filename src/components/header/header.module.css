@@ -12,6 +12,13 @@
   width: 90%;
 }
 
+.img {
+  width: 2.5em;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 0.5px solid lightgray;
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -39,6 +46,7 @@
   margin: 0;
   padding: 0 0.2em;
   color: black;
+  cursor: pointer;
 }
 
 .menu {
