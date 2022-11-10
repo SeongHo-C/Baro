@@ -5,16 +5,18 @@ import { useParams } from 'react-router-dom';
 import DetailInfo from '../../components/detail_info/detail_info';
 import DetailManage from '../../components/detail_manage/detail_manage';
 import DetailResult from '../../components/detail_result/detail_result';
-import Modal from '../../components/modal/modal';
+import { imageLookup } from '../../service/image_api';
 import styles from './project_detail.module.css';
 
 const ProjectDetail = ({ openModal }) => {
   const [activeTab, setActiveTab] = useState(0);
+  const [likeCount, setLikeCount] = useState(0);
   const [data, setData] = useState();
+  const [like, setLike] = useState();
+  const [image, setImage] = useState();
+
   const url = process.env.REACT_APP_URL;
   const id = useParams().id;
-  const [like, setLike] = useState();
-  const [likeCount, setLikeCount] = useState(0);
 
   const jwtToken = localStorage.getItem('jwtToken');
   const loginId = jwtToken && jwtDecode(jwtToken).sub;
@@ -31,10 +33,20 @@ const ProjectDetail = ({ openModal }) => {
             memberId: loginId || '',
           },
         })
-        .then((res) => {
-          setData(res.data);
-          setLike(res.data.like);
-          setLikeCount(res.data.summary.likeCount);
+        .then((res) => res.data)
+        .then((data) => {
+          const {
+            like,
+            summary: { likeCount },
+            team,
+          } = data;
+
+          setData(data);
+          setLike(like);
+          setLikeCount(likeCount);
+          imageLookup({ type: 'member', image: team[0].userProfileImage }).then(
+            (image) => setImage(image)
+          );
         });
     } catch (error) {
       console.log(error);
@@ -73,6 +85,8 @@ const ProjectDetail = ({ openModal }) => {
     }
   };
 
+  const tab = ['정보', '결과물', '관리'];
+
   const tabMenu = {
     0: data && (
       <DetailInfo data={data} getData={getData} openModal={openModal} />
@@ -80,8 +94,6 @@ const ProjectDetail = ({ openModal }) => {
     1: <DetailResult />,
     2: <DetailManage data={data} getData={getData} />,
   };
-
-  const tab = ['정보', '결과물', '관리'];
 
   const getState = (state) => {
     switch (state) {
@@ -100,18 +112,25 @@ const ProjectDetail = ({ openModal }) => {
 
   return (
     <section className={styles.detail}>
-      {data && (
+      {data ? (
         <div className={styles.container}>
           <header className={styles.header}>
             <span className={styles.kind}>{data.summary.purpose}</span>
             <span className={styles.title}>{data.summary.title}</span>
-            <div className={styles.leaderSelect}>
-              <div className={styles.leader}>
-                <i className='fa-regular fa-user'></i>
-                <span className={styles.leaderInfo}>
-                  {data.summary.leaderNickname}
-                </span>
-              </div>
+            <div className={styles.leader}>
+              <img
+                className={styles.img}
+                src={image ? image : '../../images/user.png'}
+              ></img>
+              <span className={styles.leaderInfo}>
+                {data.summary.leaderNickname}
+              </span>
+            </div>
+
+            <div className={styles.situationLike}>
+              <span className={styles.situation}>{`${getState(
+                data.summary.state
+              )}`}</span>
               <div className={styles.cnt}>
                 <div className={styles.heart}>
                   {like ? (
@@ -144,9 +163,6 @@ const ProjectDetail = ({ openModal }) => {
                 </div>
               </div>
             </div>
-            <span className={styles.situation}>{`${getState(
-              data.summary.state
-            )}`}</span>
           </header>
           <main className={styles.main}>
             <ul className={styles.tab}>
@@ -189,6 +205,8 @@ const ProjectDetail = ({ openModal }) => {
             <div className={styles.contents}>{tabMenu[activeTab]}</div>
           </main>
         </div>
+      ) : (
+        <div style={{ height: '100vh' }}></div>
       )}
     </section>
   );

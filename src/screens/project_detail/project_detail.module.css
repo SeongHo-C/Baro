@@ -8,6 +8,7 @@
 .container {
   width: 90%;
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
 }
@@ -20,6 +21,14 @@
   justify-content: center;
 }
 
+.img {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 0.5px solid lightgray;
+  margin-right: 0.5rem;
+}
+
 .kind {
   padding: 0.5rem 1rem;
   background-color: makerOrange;
@@ -28,23 +37,20 @@
 }
 
 .title {
-  margin-top: 1.5rem;
+  margin: 1.5rem 0;
   font-weight: 600;
   font-size: 1.5rem;
 }
 
-.leaderSelect {
-  justify-content: space-between;
-  margin-top: 1rem;
+.leader {
   display: flex;
-  font-size: 1.1rem;
+  align-items: center;
 }
 
 .leader,
 .cnt {
   font-weight: 600;
   color: gray;
-  margin: 0 5rem;
 }
 
 .cnt {
@@ -54,6 +60,14 @@
 .leaderInfo,
 .selectCnt {
   margin-left: 0.2rem;
+}
+
+.situationLike {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  width: 12rem;
+  justify-content: space-around;
 }
 
 .heart {
@@ -86,7 +100,6 @@
 }
 
 .situation {
-  margin-top: 1rem;
   font-size: 0.9rem;
   background-color: lightgray;
   border-radius: 1rem;
