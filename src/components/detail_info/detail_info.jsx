@@ -9,7 +9,6 @@ const DetailInfo = ({ data, openModal }) => {
   const { jobs, leaderId, id, state } = data.summary;
   const {
     description,
-    loungeId,
     startDate,
     endDate,
     skill,
@@ -22,6 +21,14 @@ const DetailInfo = ({ data, openModal }) => {
   const loginId = jwtToken && jwtDecode(jwtToken).sub;
   const [apply, setApply] = useState(false);
   const [member, setMember] = useState(false);
+  const [roungeModal, setRoungeModal] = useState(false);
+
+  const openRoungeModal = () => {
+    setRoungeModal(true);
+  };
+  const closeModal = () => {
+    setRoungeModal(false);
+  };
 
   const getDate = (start, end) => {
     const st = new Date(start).getTime();
@@ -130,9 +137,9 @@ const DetailInfo = ({ data, openModal }) => {
         <span dangerouslySetInnerHTML={{ __html: description }}></span>
         {ideaDetail && (
           <div className={styles.ideas}>
-            <span className={styles.idea}>
+            <button className={styles.idea} onClick={openRoungeModal}>
               {`@ good idea of ${ideaDetail.memberNickname}`}
-            </span>
+            </button>
           </div>
         )}
       </div>
@@ -180,6 +187,16 @@ const DetailInfo = ({ data, openModal }) => {
             }
           })}
       </div>
+      {roungeModal && (
+        <Modal open={roungeModal} close={closeModal}>
+          <div className={styles.modalText}>
+            {/* <span>라운지 정보</span> */}
+            <span
+              dangerouslySetInnerHTML={{ __html: ideaDetail.content }}
+            ></span>
+          </div>
+        </Modal>
+      )}
     </section>
   );
 };
