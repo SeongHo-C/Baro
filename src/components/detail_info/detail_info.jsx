@@ -13,7 +13,7 @@ const DetailInfo = ({ data, openModal }) => {
     startDate,
     endDate,
     skill,
-    ideaProviderName,
+    ideaDetail,
     team,
     applicants,
   } = data;
@@ -128,10 +128,10 @@ const DetailInfo = ({ data, openModal }) => {
       <div className={styles.container}>
         <span className={styles.description}>소개</span>
         <span dangerouslySetInnerHTML={{ __html: description }}></span>
-        {loungeId && (
+        {ideaDetail && (
           <div className={styles.ideas}>
             <span className={styles.idea}>
-              {`@ good idea of ${ideaProviderName}`}
+              {`@ good idea of ${ideaDetail.memberNickname}`}
             </span>
           </div>
         )}
