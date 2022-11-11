@@ -52,10 +52,14 @@ const MypageProject = (props) => {
       </div>
       <div className={styles.card}>
         <span className={styles.title}>완료 현황</span>
-        {projects &&
-          Object.keys(projects.complete).map((key) => (
-            <ProjectCard key={key} project={projects.complete[key]} />
-          ))}
+        <div className={styles.projectCard}>
+          <ul className={styles.project}>
+            {projects &&
+              Object.keys(projects.complete).map((key) => (
+                <ProjectCard key={key} project={projects.complete[key]} />
+              ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
