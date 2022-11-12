@@ -31,7 +31,7 @@ const AllProject = (props) => {
       console.log(error);
     }
   });
-  console.log(datas.project);
+
   const handlePageChange = (page) => {
     setPage(page);
   };

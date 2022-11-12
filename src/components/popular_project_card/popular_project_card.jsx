@@ -14,7 +14,6 @@ const PopularProjectCard = ({ project }) => {
     title,
     state,
     jobs,
-    tech,
     viewCount,
     likeCount,
   } = project;
@@ -45,8 +44,10 @@ const PopularProjectCard = ({ project }) => {
   }, [imagePath]);
 
   return (
-    <li className={styles.container} onClick={() => onMoveDetail(id)}>
-      <img className={styles.img} src={image} alt='' />
+    <li className={styles.container} onClick={onMoveDetail}>
+      <div>
+        <img className={styles.img} src={image} alt='' />
+      </div>
       <div className={styles.info}>
         <span className={styles.purpose}>{purpose}</span>
         <span className={styles.projectName}>{title}</span>
