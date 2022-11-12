@@ -1,7 +1,9 @@
+@value makerOrange from '../../common/color.module.css';
+
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 15px;
+  margin-top: 2rem;
 }
 
 ul {
@@ -32,7 +34,7 @@ ul.pagination li:last-child {
 
 ul.pagination li a {
   text-decoration: none;
-  color: #337ab7;
+  color: makerOrange;
   font-size: 1rem;
 }
 
@@ -41,16 +43,16 @@ ul.pagination li.active a {
 }
 
 ul.pagination li.active {
-  background-color: #337ab7;
+  background-color: makerOrange;
 }
 
 ul.pagination li a:hover,
 ul.pagination li a.active {
-  color: lightskyblue;
+  opacity: 0.8;
 }
 
 .page-selection {
   width: 48px;
   height: 30px;
-  color: #337ab7;
+  color: makerOrange;
 }
