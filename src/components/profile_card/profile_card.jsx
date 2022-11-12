@@ -3,6 +3,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { imageLookup } from '../../service/image_api';
 import styles from './profile_card.module.css';
 
 const ProfileCard = ({ data }) => {
@@ -14,46 +15,23 @@ const ProfileCard = ({ data }) => {
     projectJobName,
     memberId,
   } = data;
-  const [imgSrc, setImgSrc] = useState();
-
-  const url = process.env.REACT_APP_URL;
-
-  const getImage = async (image) => {
-    try {
-      axios
-        .get(`${url}/image/member/${image}`, {
-          responseType: 'blob',
-        })
-        .then((response) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(response.data);
-          return new Promise((resolve) => {
-            reader.onload = () => {
-              setImgSrc(reader.result);
-              resolve();
-            };
-          });
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  const [image, setImage] = useState();
   const navigate = useNavigate();
+
   const moveProfile = () => {
     navigate(`/profile/${memberId}`);
   };
 
   useEffect(() => {
-    getImage(userProfileImage);
-  }, []);
+    imageLookup({ type: 'member', image: userProfileImage }).then(setImage);
+  }, [userProfileImage]);
 
   return (
     <section className={styles.profileCard} onClick={moveProfile}>
       <div className={styles.header}>
         <img
           className={styles.userImg}
-          src={imgSrc ? imgSrc : '../../images/user.png'}
+          src={image ? image : '../../images/user.png'}
           alt=''
         />
         <div className={styles.user}>

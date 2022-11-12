@@ -16,6 +16,7 @@ const DetailInfo = ({ data, openModal }) => {
     team,
     applicants,
   } = data;
+
   const url = process.env.REACT_APP_URL;
   const jwtToken = localStorage.getItem('jwtToken');
   const loginId = jwtToken && jwtDecode(jwtToken).sub;
@@ -53,9 +54,7 @@ const DetailInfo = ({ data, openModal }) => {
       } catch (error) {
         console.log(error);
       }
-    } else {
-      openModal();
-    }
+    } else openModal();
   };
 
   const handleProjectReject = async () => {
@@ -190,7 +189,6 @@ const DetailInfo = ({ data, openModal }) => {
       {roungeModal && (
         <Modal open={roungeModal} close={closeModal}>
           <div className={styles.modalText}>
-            {/* <span>라운지 정보</span> */}
             <span
               dangerouslySetInnerHTML={{ __html: ideaDetail.content }}
             ></span>

@@ -1,7 +1,6 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import ProjectCard from '../../components/project_card/project_card';
 import { getRecentProjects } from '../../slices/projects/recentSlice';
 import styles from './main.module.css';
@@ -42,7 +41,7 @@ const Main = (props) => {
         <ul className={styles.project}>
           {projects &&
             Object.keys(projects).map((key) => (
-              <ProjectCard key={key} project={projects[key]} />
+              <ProjectCard key={projects[key].id} project={projects[key]} />
             ))}
         </ul>
       </div>
