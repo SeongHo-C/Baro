@@ -2,6 +2,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { imageLookup } from '../../service/image_api';
 import styles from './popular_project_card.module.css';
 
 const PopularProjectCard = ({ project }) => {
@@ -17,8 +18,8 @@ const PopularProjectCard = ({ project }) => {
     viewCount,
     likeCount,
   } = project;
-  const [imgSrc, setImgSrc] = useState('');
-  const url = process.env.REACT_APP_URL;
+  const [image, setImage] = useState('');
+
   const totalRecruit = _.sumBy(jobs, (job) => job.recruitCount);
   const completeRecruit = _.sumBy(jobs, (job) => job.completeCount);
 
@@ -39,34 +40,13 @@ const PopularProjectCard = ({ project }) => {
     navigate(`/detail/${id}`);
   };
 
-  const getImage = async (imagePath) => {
-    try {
-      axios
-        .get(`${url}/image/project/${imagePath}`, {
-          responseType: 'blob',
-        })
-        .then((response) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(response.data);
-          return new Promise((resolve) => {
-            reader.onload = () => {
-              setImgSrc(reader.result);
-              resolve();
-            };
-          });
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    getImage(imagePath);
-  }, []);
+    imageLookup({ type: 'project', image: imagePath }).then(setImage);
+  }, [imagePath]);
 
   return (
     <li className={styles.container} onClick={() => onMoveDetail(id)}>
-      <img className={styles.img} src={imgSrc} alt='' />
+      <img className={styles.img} src={image} alt='' />
       <div className={styles.info}>
         <span className={styles.purpose}>{purpose}</span>
         <span className={styles.projectName}>{title}</span>
