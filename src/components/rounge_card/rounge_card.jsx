@@ -1,14 +1,13 @@
-import { Viewer } from '@toast-ui/react-editor';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { imageLookup } from '../../service/image_api';
 import styles from './rounge_card.module.css';
 
 const RoungeCard = ({ data }) => {
   const { id, content, createDate, memberNickname, memberProfileUrl } = data;
+  const [image, setImage] = useState();
+
   const navigate = useNavigate();
-  const [imgSrc, setImgSrc] = useState();
-  const url = process.env.REACT_APP_URL;
 
   const moveProjectCreate = () => {
     navigate('/project/create', {
@@ -18,41 +17,20 @@ const RoungeCard = ({ data }) => {
     });
   };
 
-  const getImage = async (image) => {
-    try {
-      axios
-        .get(`${url}/image/member/${image}`, {
-          responseType: 'blob',
-        })
-        .then((response) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(response.data);
-          return new Promise((resolve) => {
-            reader.onload = () => {
-              setImgSrc(reader.result);
-              resolve();
-            };
-          });
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    if (memberProfileUrl) getImage(memberProfileUrl);
-  });
+    memberProfileUrl &&
+      imageLookup({ type: 'member', image: memberProfileUrl }).then(setImage);
+  }, [memberProfileUrl]);
 
   return (
     <li className={styles.container}>
       <div className={styles.header}>
         <div className={styles.user}>
-          {imgSrc ? (
-            <img className={styles.img} src={imgSrc} alt='' />
-          ) : (
-            <img className={styles.img} src='../../images/user.png' alt='' />
-          )}
-
+          <img
+            className={styles.img}
+            src={image ? image : '../../images/user.png'}
+            alt=''
+          />
           <span className={styles.text}>{memberNickname}</span>
         </div>
         <span>{createDate}</span>
