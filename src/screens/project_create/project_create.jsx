@@ -114,6 +114,16 @@ const ProjectCreate = (props) => {
   });
 
   const onProjectCreate = async (data) => {
+    const { title, thumbnailLink } = data;
+    if (!title) {
+      alert('프로젝트명을 입력해주세요.');
+      return;
+    }
+    if (!thumbnailLink) {
+      alert('이미지를 등록해주세요.');
+      return;
+    }
+
     try {
       await axios
         .post(`${url}/project`, data) //
@@ -122,7 +132,6 @@ const ProjectCreate = (props) => {
           if (status === 201) {
             navigate('/');
           }
-          console.log(response);
         });
     } catch (error) {
       console.log(error);
