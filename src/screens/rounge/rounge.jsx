@@ -20,7 +20,8 @@ const Rounge = (props) => {
 
   const url = process.env.REACT_APP_URL;
 
-  const isLoginId = jwtDecode(localStorage.getItem('jwtToken')).sub;
+  const token = localStorage.getItem('jwtToken') || '';
+  const isLoginId = token && jwtDecode(localStorage.getItem('jwtToken')).sub;
 
   const datas = useSelector((state) => state.rounge.data);
   const totalElements = useSelector((state) => state.rounge.totalElements);
