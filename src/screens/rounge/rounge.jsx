@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import jwtDecode from 'jwt-decode';
 import { getRounge } from '../../slices/rounge/roungeSlice';
 import Paging from '../../components/paging/paging';
-import { useNavigate } from 'react-router-dom';
 
 const Rounge = (props) => {
   const [page, setPage] = useState(1);
@@ -25,50 +24,6 @@ const Rounge = (props) => {
 
   const datas = useSelector((state) => state.rounge.data);
   const totalElements = useSelector((state) => state.rounge.totalElements);
-
-  const settings = {
-    arrows: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    cssEase: 'linear',
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
-  };
-
-  function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{
-          ...style,
-          display: 'block',
-          right: '3.2rem',
-        }}
-        onClick={onClick}
-      />
-    );
-  }
-
-  function SamplePrevArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{
-          ...style,
-          display: 'block',
-          left: '2rem',
-          zIndex: 1,
-        }}
-        onClick={onClick}
-      />
-    );
-  }
 
   const onRegister = async (e) => {
     const content = editorRef.current.getInstance().getHTML();
@@ -131,7 +86,7 @@ const Rounge = (props) => {
         <ul className={styles.lists}>
           {datas &&
             Object.keys(datas).map((key) => (
-              <RoungeCard key={key} data={datas[key]} />
+              <RoungeCard key={datas[key].id} data={datas[key]} />
             ))}
         </ul>
         {totalElements.length !== 0 && (

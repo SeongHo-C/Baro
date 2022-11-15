@@ -1,8 +1,7 @@
 .container {
-  width: 20em;
+  width: 300px;
   list-style: none;
   border: 1px solid lightgray;
-  margin: 0.5em 0.5em;
   border-radius: 1rem;
   cursor: pointer;
 }

@@ -28,23 +28,23 @@ const Main = (props) => {
           alt=''
         />
       </div>
-      <div className={styles.moveContainer}>
-        <div className={styles.moveProjects}>
-          <button onClick={moveProjects}>
-            <span className={styles.moveTxt}>
-              따끈따끈, 다양한 프로젝트를 만나보세요 🚀
-            </span>
-          </button>
+      <main className={styles.main}>
+        <div className={styles.moveContainer}>
+          <div className={styles.moveProjects}>
+            <button onClick={moveProjects}>
+              <span className={styles.moveTxt}>
+                따끈따끈, 다양한 프로젝트를 만나보세요 🚀
+              </span>
+            </button>
+          </div>
         </div>
-      </div>
-      <div className={styles.projectCard}>
         <ul className={styles.project}>
           {projects &&
             Object.keys(projects).map((key) => (
               <ProjectCard key={projects[key].id} project={projects[key]} />
             ))}
         </ul>
-      </div>
+      </main>
     </section>
   );
 };
