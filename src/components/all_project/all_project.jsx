@@ -106,17 +106,15 @@ const AllProject = (props) => {
         />{' '}
         모집중
       </div>
-      <div className={styles.projectCard}>
-        <ul className={styles.project}>
-          {datas.project &&
-            Object.keys(datas.project).map((key) => (
-              <ProjectCard
-                key={datas.project[key].id}
-                project={datas.project[key]}
-              />
-            ))}
-        </ul>
-      </div>
+      <ul className={styles.project}>
+        {datas.project &&
+          Object.keys(datas.project).map((key) => (
+            <ProjectCard
+              key={datas.project[key].id}
+              project={datas.project[key]}
+            />
+          ))}
+      </ul>
       <div>
         {datas.totalElements.length !== 0 && (
           <Paging

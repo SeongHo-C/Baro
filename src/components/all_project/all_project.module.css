@@ -1,20 +1,30 @@
+@value mediaQuery from '../../common/size.module.css';
+
 .select {
-  width: 15%;
+  width: 12rem;
   padding: 0.6rem 0.5rem;
   border-radius: 0.5rem;
   margin-right: 1em;
-}
-
-.projectCard {
-  display: flex;
-  justify-content: center;
-  margin-top: 1.5em;
+  margin-bottom: 1em;
 }
 
 .project {
-  display: flex;
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(4, 1fr);
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
   width: 100%;
-
-  flex-wrap: wrap;
+  margin-bottom: 3em;
   padding: 0;
+}
+
+@media screen and (max-width: mediaQuery) {
+  .project {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .select {
+    width: 10rem;
+  }
 }

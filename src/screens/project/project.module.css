@@ -4,10 +4,12 @@
 .container {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .project {
   width: 90%;
+  max-width: 1250px;
   display: flex;
   padding-top: 3rem;
   padding-bottom: 2rem;
@@ -40,7 +42,7 @@
 }
 
 .newProject {
-  width: 38rem;
+  width: 35rem;
   flex-basis: 50%;
 }
 
@@ -60,5 +62,9 @@
 @media screen and (max-width: mediaQuery) {
   .container1 {
     flex-direction: column;
+  }
+
+  .popularProject {
+    margin-left: 0;
   }
 }
