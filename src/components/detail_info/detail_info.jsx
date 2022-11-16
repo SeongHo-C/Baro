@@ -1,6 +1,7 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
+import { imageLookup } from '../../service/image_api';
 import Modal from '../modal/modal';
 import ProfileCard from '../profile_card/profile_card';
 import styles from './detail_info.module.css';
@@ -17,15 +18,21 @@ const DetailInfo = ({ data, openModal }) => {
     applicants,
   } = data;
 
+  console.log(ideaDetail);
   const url = process.env.REACT_APP_URL;
   const jwtToken = localStorage.getItem('jwtToken');
   const loginId = jwtToken && jwtDecode(jwtToken).sub;
   const [apply, setApply] = useState(false);
   const [member, setMember] = useState(false);
   const [roungeModal, setRoungeModal] = useState(false);
+  const [ideaProvider, setIdeaProvider] = useState();
 
   const openRoungeModal = () => {
     setRoungeModal(true);
+
+    ideaDetail.memberProfileUrl &&
+      imageLookup({ type: 'member', image: ideaDetail.memberProfileUrl }) //
+        .then(setIdeaProvider);
   };
   const closeModal = () => {
     setRoungeModal(false);
@@ -41,7 +48,6 @@ const DetailInfo = ({ data, openModal }) => {
     return days;
   };
 
-  console.log(data);
   const handleProjectApply = async (jobId) => {
     if (loginId !== null) {
       try {
@@ -188,8 +194,22 @@ const DetailInfo = ({ data, openModal }) => {
       </div>
       {roungeModal && (
         <Modal open={roungeModal} close={closeModal}>
-          <div className={styles.modalText}>
+          <div className={styles.modal}>
+            <div className={styles.ideaHeader}>
+              <div className={styles.ideaUser}>
+                <img
+                  className={styles.ideaImg}
+                  src={ideaProvider ? ideaProvider : '../../images/user.png'}
+                  alt=''
+                />
+                <span className={styles.ideaTxt}>
+                  {ideaDetail.memberNickname}
+                </span>
+              </div>
+              <span>{ideaDetail.createDate}</span>
+            </div>
             <span
+              className={styles.ideaContent}
               dangerouslySetInnerHTML={{ __html: ideaDetail.content }}
             ></span>
           </div>

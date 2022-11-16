@@ -116,8 +116,36 @@
   margin-bottom: 0.5rem;
 }
 
-.modalText {
+.modal {
   font-size: 0.9rem;
   display: flex;
   flex-direction: column;
+  width: 35rem;
+}
+
+.ideaImg {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  border: 0.5px solid lightgrey;
+}
+
+.ideaHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ideaUser {
+  display: flex;
+  align-items: center;
+}
+
+.ideaTxt {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-left: 1rem;
+}
+
+.ideaContent {
+  padding: 0 1rem;
 }

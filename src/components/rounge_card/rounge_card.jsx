@@ -19,7 +19,8 @@ const RoungeCard = ({ data }) => {
 
   useEffect(() => {
     memberProfileUrl &&
-      imageLookup({ type: 'member', image: memberProfileUrl }).then(setImage);
+      imageLookup({ type: 'member', image: memberProfileUrl }) //
+        .then(setImage);
   }, [memberProfileUrl]);
 
   return (
