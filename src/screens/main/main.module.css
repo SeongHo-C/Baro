@@ -1,4 +1,4 @@
-@value mediaQuery from '../../common/size.module.css';
+@value mediaQuery, phoneQuery from '../../common/size.module.css';
 
 .container {
   display: flex;
@@ -55,5 +55,11 @@
 @media screen and (max-width: mediaQuery) {
   .project {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: phoneQuery) {
+  .project {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
