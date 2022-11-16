@@ -27,13 +27,22 @@ const Rounge = (props) => {
   const totalElements = useSelector((state) => state.rounge.totalElements);
 
   const onRegister = async (e) => {
+    e.preventDefault();
+
     const content = editorRef.current.getInstance().getHTML();
 
+    if (content.length > 2000) {
+      alert('최대 글자수는 2000입니다.');
+      return;
+    }
+
     try {
-      await axios.post(`${url}/lounge`, {
-        content,
-        memberId: isLoginId,
-      });
+      await axios
+        .post(`${url}/lounge`, {
+          content,
+          memberId: isLoginId,
+        })
+        .then(() => window.location.reload());
     } catch (error) {
       console.log(error);
     }
