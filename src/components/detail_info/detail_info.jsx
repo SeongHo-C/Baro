@@ -172,7 +172,9 @@ const DetailInfo = ({ data, openModal }) => {
       </div>
       <div className={styles.leaderInfo}>
         <span className={styles.name}>리더</span>
-        {team.length > 0 && <ProfileCard data={team[0]} />}
+        <div className={styles.profileGrid}>
+          {team.length > 0 && <ProfileCard data={team[0]} />}
+        </div>
       </div>
       <div className={styles.memberInfo}>
         <span className={styles.memberTxt}>멤버</span>
@@ -185,12 +187,14 @@ const DetailInfo = ({ data, openModal }) => {
             이 프로젝트는 더이상 지원할 수 ❌
           </span>
         )}
-        {team.length > 1 &&
-          team.map((member) => {
-            if (member.memberId !== leaderId) {
-              return <ProfileCard key={member.id} data={member} />;
-            }
-          })}
+        <div className={styles.profileGrid}>
+          {team.length > 1 &&
+            team.map((member) => {
+              if (member.memberId !== leaderId) {
+                return <ProfileCard key={member.id} data={member} />;
+              }
+            })}
+        </div>
       </div>
       {roungeModal && (
         <Modal open={roungeModal} close={closeModal}>

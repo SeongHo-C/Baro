@@ -56,21 +56,23 @@ const DetailManage = ({ data, getData }) => {
         </div>
       </div>
 
-      <div className={styles.leaderInfo}>
-        <span className={styles.name}>현재 멤버 정보</span>
-        {team.length > 1 ? (
-          team.map((member) => {
-            if (member.memberId !== leaderId) {
-              return <ProfileCard key={member.id} data={member} />;
-            }
-          })
-        ) : (
-          <span>같이할 멤버를 기다리는 중~😢</span>
-        )}
-      </div>
       <div className={styles.memberInfo}>
+        <span className={styles.name}>현재 멤버 정보</span>
+        <div className={styles.profileGrid}>
+          {team.length > 1 ? (
+            team.map((member) => {
+              if (member.memberId !== leaderId) {
+                return <ProfileCard key={member.id} data={member} />;
+              }
+            })
+          ) : (
+            <span>같이할 멤버를 기다리는 중~😢</span>
+          )}
+        </div>
+      </div>
+      <div className={styles.applicantInfo}>
         <span className={styles.memberTxt}>지원자</span>
-        <ul className={styles.applicationCards}>
+        <ul className={styles.profileGrid}>
           {applicants.length > 0
             ? applicants.map((applicant) => (
                 <li className={styles.applicationCard} key={applicant.id}>

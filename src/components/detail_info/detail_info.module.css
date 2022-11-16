@@ -151,3 +151,14 @@
 .ideaContent {
   padding: 0 1rem;
 }
+
+.profileGrid {
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(4, 1fr);
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+  width: 100%;
+  margin: 1.5rem 0;
+  padding: 0;
+}
