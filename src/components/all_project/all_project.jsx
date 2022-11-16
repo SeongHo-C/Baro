@@ -67,7 +67,10 @@ const AllProject = (props) => {
         <select
           ref={schoolRef}
           className={styles.select}
-          onChange={handleProjectList}
+          onChange={() => {
+            handleProjectList();
+            setPage(1);
+          }}
         >
           <option>학교</option>
           <option>인하공업전문대학</option>
@@ -76,7 +79,10 @@ const AllProject = (props) => {
         <select
           ref={purposeRef}
           className={styles.select}
-          onChange={handleProjectList}
+          onChange={() => {
+            handleProjectList();
+            setPage(1);
+          }}
         >
           <option>목적</option>
           <option>사이드 프로젝트</option>
@@ -102,7 +108,10 @@ const AllProject = (props) => {
         <input
           ref={stateRef}
           type='checkbox'
-          onChange={() => setRecruiting(!recruiting)}
+          onChange={() => {
+            setRecruiting(!recruiting);
+            setPage(1);
+          }}
         />{' '}
         모집중
       </div>
