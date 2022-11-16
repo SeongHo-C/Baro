@@ -121,6 +121,8 @@
   display: flex;
   flex-direction: column;
   width: 35rem;
+  max-height: 35rem;
+  overflow-y: auto;
 }
 
 .ideaImg {
