@@ -6,7 +6,7 @@
 }
 
 .container {
-  width: 90%;
+  width: 1250px;
   display: flex;
   flex-direction: column;
 }
