@@ -10,7 +10,9 @@
 
 .header {
   display: flex;
-  width: 1250px;
+  max-width: 1250px;
+  width: 90%;
+  margin: 0 auto;
   flex-direction: column;
 }
 
