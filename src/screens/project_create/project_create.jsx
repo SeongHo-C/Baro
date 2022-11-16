@@ -81,6 +81,12 @@ const ProjectCreate = (props) => {
     e.preventDefault();
 
     const len = Object.keys(recruits).length;
+
+    if (len === 1) {
+      alert('최소 모집인원은 한 명입니다.');
+      return;
+    }
+
     const lastRecruitId = Object.keys(recruits)[len - 1];
 
     const updated = { ...recruits };
