@@ -5,6 +5,7 @@
   flex-direction: column;
   margin-top: 3em;
   align-items: center;
+  width: 1250px;
 }
 
 .header {

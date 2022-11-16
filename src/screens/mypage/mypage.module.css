@@ -104,3 +104,8 @@
 .noActive {
   border-bottom: 1px solid makerOrange;
 }
+
+.contents {
+  display: flex;
+  justify-content: center;
+}
