@@ -16,7 +16,6 @@ const Oauth = (props) => {
 
     onLoginSuccess(accessToken, refreshToken);
 
-    // isJoin으로 판별해야함.
     if (!userInfo.nickname) {
       navigate('/join', {
         state: jwtDecode(accessToken),
@@ -24,16 +23,10 @@ const Oauth = (props) => {
     } else {
       navigate('/');
     }
-    // setIsLogin(isJoin);
   };
-
-  // const isCheckJoin = () => {
-  //   if (isLogin) navigate('/join');
-  // };
 
   useEffect(() => {
     isGoogleLogin();
-    // isCheckJoin();
   }, []);
 
   return;

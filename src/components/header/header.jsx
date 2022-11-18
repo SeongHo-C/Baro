@@ -20,6 +20,7 @@ const Header = (props) => {
   const isUser = useSelector((state) => state.user.isAuthenticated);
   const token = localStorage.getItem('jwtToken');
   const id = token ? jwtDecode(token).sub : '';
+  const url = process.env.REACT_APP_URL;
 
   const handleResize = debounce(() => {
     setResize(window.innerWidth);
@@ -124,7 +125,7 @@ const Header = (props) => {
                       <span>아이디어 공유부터 팀빌딩까지</span>
                       <span>이곳에서 바로!</span>
                     </div>
-                    <a href='http://bestinwoo.hopto.org:8080/oauth2/authorization/google'>
+                    <a href={`${url}/oauth2/authorization/google`}>
                       <img src='../../images/google.png' alt='' />
                     </a>
                   </div>
