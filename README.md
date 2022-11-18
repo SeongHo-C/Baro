@@ -2,7 +2,7 @@
 <p>
 </p>
 
-> Baro / 바로 (Frontend 1명, Backend 1명) 2022.09 ~ 현재(진행중) 💻 [Website](http://baroidea.net/)
+> Baro / 바로 (Frontend 1명, Backend 1명) 2022.09 ~ 현재(진행중)
 
 <br>
 
