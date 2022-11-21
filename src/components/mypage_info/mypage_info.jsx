@@ -91,7 +91,7 @@ const MypageInfo = ({ userData, handleChange }) => {
 
   const userInfoPatch = async (userInfo) => {
     try {
-      await axios.patch(`/member/${id}`, userInfo).then(() => {
+      await axios.patch(`${url}/member/${id}`, userInfo).then(() => {
         alert('수정이 완료되었습니다.');
       });
     } catch (error) {
