@@ -8,45 +8,21 @@ import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import UserJob from '../user_job/user_job';
 import { useDispatch } from 'react-redux';
+import { imageLookup } from '../../service/image_api';
 
 const MypageInfo = ({ userData, handleChange }) => {
   const [imgSrc, setImgSrc] = useState('');
   const [file, setFile] = useState('');
-  const [email, setEmail] = useState('');
   const [jobs, setJobs] = useState();
   const [jobId, setJobId] = useState();
   const [jobLevel, setJobLevel] = useState();
 
   const imgRef = useRef();
-  const editorRef = useRef();
-  const emailRef = useRef();
   const nicknameRef = useRef();
-  const jobLevelRef = useRef();
   const introduceRef = useRef();
   const url = process.env.REACT_APP_URL;
   const id = jwtDecode(localStorage.getItem('jwtToken')).sub;
   const dispatch = useDispatch();
-
-  const getImage = async (image) => {
-    try {
-      axios
-        .get(`${url}/image/member/${image}`, {
-          responseType: 'blob',
-        })
-        .then((response) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(response.data);
-          return new Promise((resolve) => {
-            reader.onload = () => {
-              setImgSrc(reader.result);
-              resolve();
-            };
-          });
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const updatedImg = (image) => {
     const updated = { ...userData };
@@ -142,7 +118,8 @@ const MypageInfo = ({ userData, handleChange }) => {
   }, []);
 
   useEffect(() => {
-    if (userData.imageUrl) getImage(userData.imageUrl);
+    if (userData.imageUrl)
+      imageLookup({ type: 'member', image: userData.imageUrl }).then(setImgSrc);
   }, [userData]);
 
   return (
