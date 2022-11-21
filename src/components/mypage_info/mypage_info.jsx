@@ -1,13 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './mypage_info.module.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import UserJob from '../user_job/user_job';
-import { useDispatch } from 'react-redux';
 import { imageLookup } from '../../service/image_api';
 
 const MypageInfo = ({ userData, handleChange }) => {
@@ -22,7 +20,6 @@ const MypageInfo = ({ userData, handleChange }) => {
   const introduceRef = useRef();
   const url = process.env.REACT_APP_URL;
   const id = jwtDecode(localStorage.getItem('jwtToken')).sub;
-  const dispatch = useDispatch();
 
   const updatedImg = (image) => {
     const updated = { ...userData };
