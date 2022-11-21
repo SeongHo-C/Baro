@@ -114,9 +114,29 @@ const MypageInfo = ({ userData, handleChange }) => {
     getJob();
   }, []);
 
+  const getImage = async (image) => {
+    try {
+      axios
+        .get(`${url}/image/member/${image}`, {
+          responseType: 'blob',
+        })
+        .then((response) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(response.data);
+          return new Promise((resolve) => {
+            reader.onload = () => {
+              setImgSrc(reader.result);
+              resolve();
+            };
+          });
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    if (userData.imageUrl)
-      imageLookup({ type: 'member', image: userData.imageUrl }).then(setImgSrc);
+    if (userData.imageUrl) getImage(userData.imageUrl);
   }, [userData]);
 
   return (
