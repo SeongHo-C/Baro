@@ -1,16 +1,15 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import MypageInfo from '../../components/mypage_info/mypage_info';
 import MypageProject from '../../components/mypage_project/mypage_project';
-import RankingSolo from '../../components/ranking_solo/ranking_solo';
-import RankingTeam from '../../components/ranking_team/ranking_team';
+import { imageLookup } from '../../service/image_api';
 import styles from './mypage.module.css';
 
 const Mypage = (props) => {
   const [activeTab, setActiveTab] = useState(0);
   const [userData, setUserData] = useState('');
+  const [image, setImage] = useState();
 
   const onTab = (tabId) => {
     setActiveTab(tabId);
@@ -24,18 +23,28 @@ const Mypage = (props) => {
     try {
       await axios
         .get(`${url}/member/${id}`)
-        .then((res) => setUserData(res.data));
+        .then((res) => res.data)
+        .then((data) => {
+          setUserData(data);
+          imageLookup({ type: 'member', image: data.imageUrl }).then(setImage);
+        });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleChange = (updated) => {
-    setUserData(updated);
+  const handleChange = (image) => {
+    setImage(image);
   };
 
   const tabMenu = {
-    0: <MypageInfo userData={userData} handleChange={handleChange} />,
+    0: (
+      <MypageInfo
+        userData={userData}
+        handleChange={handleChange}
+        userImage={image}
+      />
+    ),
     1: <MypageProject />,
   };
 

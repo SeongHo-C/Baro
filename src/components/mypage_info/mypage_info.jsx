@@ -6,10 +6,8 @@ import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import UserJob from '../user_job/user_job';
-import { imageLookup } from '../../service/image_api';
 
-const MypageInfo = ({ userData, handleChange }) => {
-  const [imgSrc, setImgSrc] = useState('');
+const MypageInfo = ({ userData, handleChange, userImage }) => {
   const [file, setFile] = useState('');
   const [jobs, setJobs] = useState();
   const [jobId, setJobId] = useState();
@@ -21,20 +19,13 @@ const MypageInfo = ({ userData, handleChange }) => {
   const url = process.env.REACT_APP_URL;
   const id = jwtDecode(localStorage.getItem('jwtToken')).sub;
 
-  const updatedImg = (image) => {
-    const updated = { ...userData };
-    updated['imageUrl'] = image;
-    handleChange(updated);
-  };
-
   const onImgChange = (fileBlob) => {
     onImgRegister(fileBlob);
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
     return new Promise((resolve) => {
       reader.onload = () => {
-        setImgSrc(reader.result);
-        updatedImg(reader.result);
+        handleChange(reader.result);
         resolve();
       };
     });
@@ -114,31 +105,6 @@ const MypageInfo = ({ userData, handleChange }) => {
     getJob();
   }, []);
 
-  const getImage = async (image) => {
-    try {
-      axios
-        .get(`${url}/image/member/${image}`, {
-          responseType: 'blob',
-        })
-        .then((response) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(response.data);
-          return new Promise((resolve) => {
-            reader.onload = () => {
-              setImgSrc(reader.result);
-              resolve();
-            };
-          });
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    if (userData.imageUrl) getImage(userData.imageUrl);
-  }, [userData]);
-
   return (
     <section>
       {userData && (
@@ -156,7 +122,7 @@ const MypageInfo = ({ userData, handleChange }) => {
             />
             <img
               className={styles.img}
-              src={imgSrc ? imgSrc : '../../images/user.png'}
+              src={userImage ? userImage : '../../images/user.png'}
               alt=''
             />
             <button className={styles.imgBtn} onClick={imgUploadClick}>
