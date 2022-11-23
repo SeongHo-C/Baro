@@ -10,11 +10,13 @@ const RoungeCard = ({ data, openModal, isLogin }) => {
   const navigate = useNavigate();
 
   const moveProjectCreate = () => {
-    navigate('/project/create', {
-      state: {
-        loungeId: id,
-      },
-    });
+    if (isLogin) {
+      navigate('/project/create', {
+        state: {
+          loungeId: id,
+        },
+      });
+    } else openModal();
   };
 
   useEffect(() => {
@@ -40,10 +42,7 @@ const RoungeCard = ({ data, openModal, isLogin }) => {
         <span dangerouslySetInnerHTML={{ __html: content }}></span>
       </div>
       <div className={styles.btnPos}>
-        <button
-          className={styles.btn}
-          onClick={isLogin ? moveProjectCreate() : openModal()}
-        >
+        <button className={styles.btn} onClick={moveProjectCreate}>
           바로 프로젝트 생성
         </button>
       </div>
