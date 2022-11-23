@@ -22,11 +22,18 @@ const Main = (props) => {
   return (
     <section className={styles.container}>
       <div className={styles.banner}>
-        <img
-          className={styles.bannerImg}
-          src='../../../images/banner2.png'
-          alt=''
-        />
+        <div className={styles.bannerWidth}>
+          <span className={styles.bannerTxt}>
+            <h1>학교 프로젝트 어떻게 하지?</h1>
+            <p>아이디어 공유부터 팀 빌딩까지</p>
+            <p>당신을 위한 바로 !</p>
+          </span>
+          <img
+            className={styles.bannerImg}
+            src='../../../images/bannerImg.PNG'
+            alt=''
+          />
+        </div>
       </div>
       <main className={styles.main}>
         <div className={styles.moveContainer}>
