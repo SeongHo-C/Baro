@@ -13,7 +13,7 @@ import jwtDecode from 'jwt-decode';
 import { getRounge } from '../../slices/rounge/roungeSlice';
 import Paging from '../../components/paging/paging';
 
-const Rounge = (props) => {
+const Rounge = ({ openModal }) => {
   const [page, setPage] = useState(1);
   const editorRef = useRef();
   const dispatch = useDispatch();
@@ -96,7 +96,12 @@ const Rounge = (props) => {
         <ul className={styles.lists}>
           {datas &&
             Object.keys(datas).map((key) => (
-              <RoungeCard key={datas[key].id} data={datas[key]} />
+              <RoungeCard
+                key={datas[key].id}
+                data={datas[key]}
+                openModal={openModal}
+                isLogin={isLoginId}
+              />
             ))}
         </ul>
         {totalElements.length !== 0 && (

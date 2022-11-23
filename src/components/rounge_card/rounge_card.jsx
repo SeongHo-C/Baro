@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { imageLookup } from '../../service/image_api';
 import styles from './rounge_card.module.css';
 
-const RoungeCard = ({ data }) => {
+const RoungeCard = ({ data, openModal, isLogin }) => {
   const { id, content, createDate, memberNickname, memberProfileUrl } = data;
   const [image, setImage] = useState();
 
@@ -40,7 +40,10 @@ const RoungeCard = ({ data }) => {
         <span dangerouslySetInnerHTML={{ __html: content }}></span>
       </div>
       <div className={styles.btnPos}>
-        <button className={styles.btn} onClick={moveProjectCreate}>
+        <button
+          className={styles.btn}
+          onClick={isLogin ? moveProjectCreate() : openModal()}
+        >
           바로 프로젝트 생성
         </button>
       </div>
