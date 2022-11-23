@@ -46,7 +46,9 @@ const ProjectCard = ({ project }) => {
 
   return (
     <li className={styles.container} onClick={onClick}>
-      {image ? <img className={styles.img} src={image} alt='로딩중' /> : ''}
+      <div className={styles.cardImage}>
+        {image ? <img className={styles.img} src={image} alt='로딩중' /> : ''}
+      </div>
       <div className={styles.info}>
         <span className={styles.kind}>{purpose}</span>
         <span className={styles.projectName}>{title}</span>

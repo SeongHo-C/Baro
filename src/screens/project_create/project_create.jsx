@@ -14,6 +14,7 @@ import jwtDecode from 'jwt-decode';
 import { useLocation, useNavigate } from 'react-router-dom';
 import setAuthorizationToken from '../../service/setAuthorizationToken';
 import LeaderJob from '../../components/leader_job/leader_job';
+import Compressor from 'compressorjs';
 
 const ProjectCreate = (props) => {
   const [selectPurpose, setSelectPurpose] = useState('사이드 프로젝트');
@@ -54,16 +55,22 @@ const ProjectCreate = (props) => {
     });
   };
 
-  const onImgRegister = async (file) => {
-    const formdata = new FormData();
-    formdata.append('file', file);
-    try {
-      await axios
-        .post(`${url}/image?type=project`, formdata)
-        .then((res) => setFile(res.data));
-    } catch (error) {
-      console.log(error);
-    }
+  const onImgRegister = (file) => {
+    new Compressor(file, {
+      quality: 0.8,
+      maxWidth: 1000,
+      maxHeight: 1000,
+
+      success(result) {
+        console.log(result);
+        const formdata = new FormData();
+        formdata.append('file', result, result.name);
+
+        axios
+          .post(`${url}/image?type=project`, formdata)
+          .then((res) => setFile(res.data));
+      },
+    });
   };
 
   const onImgUploadBtn = (e) => {
