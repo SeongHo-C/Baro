@@ -15,6 +15,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import setAuthorizationToken from '../../service/setAuthorizationToken';
 import LeaderJob from '../../components/leader_job/leader_job';
 import Compressor from 'compressorjs';
+import Cropper from 'react-easy-crop';
 
 const ProjectCreate = (props) => {
   const [selectPurpose, setSelectPurpose] = useState('사이드 프로젝트');
@@ -132,6 +133,7 @@ const ProjectCreate = (props) => {
       alert('프로젝트명을 입력해주세요.');
       return;
     }
+
     if (!thumbnailLink) {
       alert('이미지를 등록해주세요.');
       return;
@@ -184,6 +186,10 @@ const ProjectCreate = (props) => {
 
   useEffect(() => {
     getJob();
+  }, []);
+
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    console.log(croppedArea, croppedAreaPixels);
   }, []);
 
   return (
@@ -261,6 +267,7 @@ const ProjectCreate = (props) => {
         </div>
         <div className={styles.input}>
           <span className={styles.name}>대표 이미지</span>
+
           <input
             ref={imgRef}
             type='file'

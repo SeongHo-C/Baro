@@ -7,7 +7,7 @@ import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import UserJob from '../user_job/user_job';
 
-const MypageInfo = ({ userData, handleChange, userImage }) => {
+const MypageInfo = ({ userData, handleImgChange, userImage, handleChange }) => {
   const [file, setFile] = useState('');
   const [jobs, setJobs] = useState();
   const [jobId, setJobId] = useState();
@@ -25,7 +25,7 @@ const MypageInfo = ({ userData, handleChange, userImage }) => {
     reader.readAsDataURL(fileBlob);
     return new Promise((resolve) => {
       reader.onload = () => {
-        handleChange(reader.result);
+        handleImgChange(reader.result);
         resolve();
       };
     });
@@ -123,7 +123,7 @@ const MypageInfo = ({ userData, handleChange, userImage }) => {
             <img
               className={styles.img}
               src={userImage ? userImage : '../../images/user.png'}
-              alt=''
+              alt='사용자 이미지'
             />
             <button className={styles.imgBtn} onClick={imgUploadClick}>
               <i className='fa-solid fa-pencil'></i>

@@ -21,26 +21,30 @@ const Mypage = (props) => {
 
   const getUserInfo = async (id) => {
     try {
-      await axios
+      const data = await axios
         .get(`${url}/member/${id}`)
-        .then((res) => res.data)
-        .then((data) => {
-          setUserData(data);
-          imageLookup({ type: 'member', image: data.imageUrl }).then(setImage);
-        });
+        .then((res) => res.data);
+
+      setUserData(data);
+      imageLookup({ type: 'member', image: data.imageUrl }).then(setImage);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleChange = (image) => {
+  const handleImgChange = (image) => {
     setImage(image);
+  };
+
+  const handleChange = (updated) => {
+    setUserData(updated);
   };
 
   const tabMenu = {
     0: (
       <MypageInfo
         userData={userData}
+        handleImgChange={handleImgChange}
         handleChange={handleChange}
         userImage={image}
       />
