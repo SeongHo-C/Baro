@@ -1,50 +1,66 @@
-<h1 align="center">Baro Portfolio<img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="48px"></h1>
-<p>
-</p>
+<div align="center">
 
-> Baro / 바로 (Frontend 1명, Backend 1명) 2022.09 ~ 현재(진행중) 💻 [Website](http://baroidea.net/)
+<!-- logo -->
+<img src="https://user-images.githubusercontent.com/83394485/210373087-227713f9-b0ec-46c9-b43d-320b0ebd7984.png" width="200"/>
 
-<br>
+### Baro 💡
+[<img src="https://img.shields.io/badge/프로젝트 기간-2022.09.23~진행중-FF9551?style=flat&logoColor=white" />]()
 
-## 📝 Description
-```sh
-프로젝트에 대한 아이디어를 공유하고 팀을 빌딩 할 수 있으며, 개인, 학교별 랭킹 서비스,  프로젝트 결과물 관리 기능을 제공해주는 서비스
-```
+</div> 
 
-<br>
+## 📝 소개
+프로젝트에 대한 아이디어를 공유하고 팀을 빌딩 할 수 있으며, 개인, 학교별 랭킹 서비스, 프로젝트 결과물 관리 기능을 제공해주는 서비스입니다.
 
-## 📌 Project Goal
-```sh
-대부분 학생이 프로젝트를 진행할 때 아이디어를 선정하는 것, 아이디어는 존재하지만, 
-같이 프로젝트를 진행할 학우를 모집하는 것에 대한 어려움을 가지고 있어 이를 해결하고자 이번 프로젝트를 진행 
+<br />
 
-- 추가 -
-선배들이 프로젝트 내용을 기록하고 자유롭게 공유한다면 프로젝트를 처음 시작하는 후배들의 걱정도 줄고 
-다양한 시선에 대한 시각이 넓어져 더 다채로운 서비스를 만들 수 있을 것이라고 생각하여 완성작 기능 추가
+### 목적
+<b>[첫 프로젝트에 대한 어려움 해소]</b>
 
-- 진행중 -
-모듈화를 통한 중복 코드 제거, 디자인 수정 등 (리팩토링)
-```
+"바로"를 통해 아이디어를 선정하는 것, 아이디어는 존재하지만, 같이 프로젝트를 진행할 학우를 모집하는 것에 대한 어려움을 해소할 수 있습니다.
 
-<br>
+<b>[다양한 시선에 대한 시각 확장]</b>
 
-## ⚙ Tech Stack
-#### - Frontend: React.js, Redux Toolkit
-#### - Backend: Spring, Redis
-#### - Tools: Sourcetree, Visual Studio Code
+선배들이 진행한 프로젝트 내용을 기록하고 자유롭게 공유한다면 후배들이 다양한 시선에 대한 시각이 넓어져 더 다채로운 서비스를 만들 수 있도록 도움을 줄 수 있습니다.
 
-<br>
+<br />
 
-## 🗂 System Architecture
-<img src="https://user-images.githubusercontent.com/83394485/201514697-fd860e9d-895b-4ee2-80ce-632fdecc94bc.png"  width="600" height="200"/>
+### 화면 구성
+💻 [Website](http://baroidea.net/)
 
-<br>
+<br />
 
-## 🗺 Page Navigation
-<img src="https://user-images.githubusercontent.com/83394485/201514718-d633d414-2f2f-42b7-b779-1799e28c84f2.png"  width="600" height="200"/>
+## ⚙ 기술 스택
+### Front-end
+<div>
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/JavaScript.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/React.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Redux.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/PostCSS.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Axios.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/JWT.png?raw=true" width="80">
+</div>
 
-<br>
+### Tools
+<div>
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Github.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Notion.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Swagger.png?raw=true" width="80">
+</div>
 
-## 🤜🤛 Author
-#### Frontend: Lee SeongHo
-#### Backend: Park InWoo
+<br />
+
+## 🤔 기술적 이슈와 해결 과정
+- 반응형 헤더 만들기
+    - [반응형 헤더 만들기 (feat. mediaQuery)](https://leeseong010.tistory.com/89)
+- AxiosError message: 'Request failed with status code 400'
+    - [axios delete 요청 시 body에 data 넣는 방법](https://leeseong010.tistory.com/111)
+- AxiosError message: 'Network Error'
+    - [Axios message: 'Network Error'(CORS 오류)](https://leeseong010.tistory.com/117)
+    
+<br />
+
+## 💁‍♂️ 프로젝트 팀원
+|Backend|Frontend|
+|:---:|:---:|
+| ![](https://github.com/bestinwoo.png?size=120) | ![](https://github.com/SeongHo-C.png?size=120) |
+|[박인우](https://github.com/bestinwoo)|[이성호](https://github.com/SeongHo-C)|
