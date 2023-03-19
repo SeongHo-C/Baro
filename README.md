@@ -4,7 +4,7 @@
 <img src="https://user-images.githubusercontent.com/83394485/210373087-227713f9-b0ec-46c9-b43d-320b0ebd7984.png" width="200"/>
 
 ### Baro 💡
-[<img src="https://img.shields.io/badge/프로젝트 기간-2022.09.23~진행중-FF9551?style=flat&logoColor=white" />]()
+[<img src="https://img.shields.io/badge/프로젝트 기간-2022.09.23~2022.12.06-FF9551?style=flat&logoColor=white" />]()
 
 </div> 
 
@@ -24,8 +24,8 @@
 
 <br />
 
-### 화면 구성
-💻 [Website](http://baroidea.net/)
+### 데모 영상
+https://user-images.githubusercontent.com/83394485/226159035-18548014-3316-4f95-9658-493a86c52787.mp4
 
 <br />
 
